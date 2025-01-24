@@ -1,8 +1,7 @@
-package community.whatever.onembackendjava.urlshorten;
+package community.whatever.onembackendjava.application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import community.whatever.onembackendjava.application.UrlShortenService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
