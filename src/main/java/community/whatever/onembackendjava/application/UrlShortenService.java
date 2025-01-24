@@ -1,5 +1,6 @@
-package community.whatever.onembackendjava.urlshorten;
+package community.whatever.onembackendjava.application;
 
+import community.whatever.onembackendjava.infrastructure.UrlShortenRepository;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

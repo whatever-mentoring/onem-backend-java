@@ -2,6 +2,7 @@ package community.whatever.onembackendjava.urlshorten;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import community.whatever.onembackendjava.application.UrlShortenService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

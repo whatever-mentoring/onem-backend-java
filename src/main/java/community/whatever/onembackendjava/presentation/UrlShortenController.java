@@ -1,5 +1,6 @@
-package community.whatever.onembackendjava.urlshorten;
+package community.whatever.onembackendjava.presentation;
 
+import community.whatever.onembackendjava.application.UrlShortenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
