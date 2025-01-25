@@ -19,9 +19,14 @@ public class UrlShortenService {
     }
 
     public String createShortenUrl(String originUrl) {
-        String randomKey = String.valueOf(new Random().nextInt(10000));
-        urlShortenRepository.save(randomKey, originUrl);
-        return randomKey;
+        String key = generateKey();
+        urlShortenRepository.save(key, originUrl);
+        return key;
+    }
+
+    private String generateKey() {
+        Random random = new Random();
+        return String.valueOf(random.nextInt(10000));
     }
 
 }
