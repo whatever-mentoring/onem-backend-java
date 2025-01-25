@@ -2,14 +2,16 @@ package community.whatever.onembackendjava.application;
 
 import community.whatever.onembackendjava.infrastructure.UrlShortenRepository;
 import java.util.Random;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UrlShortenService {
 
     private final UrlShortenRepository urlShortenRepository;
+
+    public UrlShortenService(UrlShortenRepository urlShortenRepository) {
+        this.urlShortenRepository = urlShortenRepository;
+    }
 
     public String shortenUrlSearch(String key) {
         return urlShortenRepository.findByKey(key)
