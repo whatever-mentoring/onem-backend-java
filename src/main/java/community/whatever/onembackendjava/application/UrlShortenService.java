@@ -10,6 +10,8 @@ public class UrlShortenService {
 
     private final UrlShortenRepository urlShortenRepository;
 
+    private static final Random RANDOM = new Random();
+
     public UrlShortenService(UrlShortenRepository urlShortenRepository) {
         this.urlShortenRepository = urlShortenRepository;
     }
@@ -26,8 +28,7 @@ public class UrlShortenService {
     }
 
     private String generateKey() {
-        Random random = new Random();
-        return String.valueOf(random.nextInt(10000));
+        return String.valueOf(RANDOM.nextInt(10000));
     }
 
 }
