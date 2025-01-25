@@ -1,6 +1,7 @@
 package community.whatever.onembackendjava.application;
 
 import community.whatever.onembackendjava.infrastructure.UrlShortenRepository;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UrlShortenService {
 
     public String getOriginUrlByKey(String key) {
         return urlShortenRepository.findByKey(key)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid key"));
+            .orElseThrow(() -> new NoSuchElementException("존재하지 않는 key입니다."));
     }
 
     public String createShortenUrl(String originUrl) {
