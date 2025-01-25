@@ -1,7 +1,9 @@
 package community.whatever.onembackendjava.application;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,20 @@ class UrlShortenServiceTest {
     private UrlShortenService urlShortenService;
 
     @Test
-    @DisplayName("shorten-url을 생성하고 조회한다.")
-    void shortenUrlCreateAndSearch() {
+    void shorten_url을_생성하고_조회한다() {
         String expectedOriginUrl = "https://www.google.com";
-        String key = urlShortenService.shortenUrlCreate(expectedOriginUrl);
-        String originUrl = urlShortenService.shortenUrlSearch(key);
+        String key = urlShortenService.createShortenUrl(expectedOriginUrl);
+        String originUrl = urlShortenService.getOriginUrlByKey(key);
 
-        assertTrue(originUrl.equals(expectedOriginUrl));
+        assertThat(originUrl).isEqualTo(expectedOriginUrl);
     }
 
     @Test
-    @DisplayName("유효하지 않은 key로 조회하면 예외가 발생한다.")
-    void shortenUrlSearchWithInvalidKey() {
-        String invalidKey = "invalidKey";
+    void 존재하지_않는_key로_조회하면_예외가_발생한다() {
+        String nonExistingKey = "nonExistingKey";
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            urlShortenService.shortenUrlSearch(invalidKey);
+        assertThrows(NoSuchElementException.class, () -> {
+            urlShortenService.getOriginUrlByKey(nonExistingKey);
         });
     }
 
