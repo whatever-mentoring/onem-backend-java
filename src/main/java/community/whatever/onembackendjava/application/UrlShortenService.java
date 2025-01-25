@@ -13,12 +13,12 @@ public class UrlShortenService {
         this.urlShortenRepository = urlShortenRepository;
     }
 
-    public String shortenUrlSearch(String key) {
+    public String getOriginUrlByKey(String key) {
         return urlShortenRepository.findByKey(key)
             .orElseThrow(() -> new IllegalArgumentException("Invalid key"));
     }
 
-    public String shortenUrlCreate(String originUrl) {
+    public String createShortenUrl(String originUrl) {
         String randomKey = String.valueOf(new Random().nextInt(10000));
         urlShortenRepository.save(randomKey, originUrl);
         return randomKey;
