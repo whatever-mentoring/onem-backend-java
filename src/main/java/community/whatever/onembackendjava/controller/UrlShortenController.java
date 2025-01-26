@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.controller;
 
 import community.whatever.onembackendjava.service.UrlShortenService;
 import org.springframework.web.bind.annotation.PostMapping;
