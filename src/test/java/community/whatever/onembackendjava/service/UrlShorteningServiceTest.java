@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class UrlShorteningServiceTest {
@@ -15,7 +14,7 @@ class UrlShorteningServiceTest {
     @Autowired
     private UrlShorteningService urlShorteningService;
 
-    private String originUri = "https://www.google.com";
+    private final String originUri = "https://www.google.com";
     private String randomUri;
 
     @BeforeEach
@@ -23,18 +22,18 @@ class UrlShorteningServiceTest {
         randomUri = urlShorteningService.createShortenUri(originUri);
     }
 
-    @DisplayName("[URL] 유효한 shorten url로 원본 url을 가져올 수 있다.")
+    @DisplayName("[URL] shorten url을 조회한다.")
     @Test
-    void searchOriginUri() {
+    void shorten_url을_조회한다() {
         String shortenedUri = urlShorteningService.searchOriginUri(randomUri);
-        assertEquals(shortenedUri, originUri);
+        assertThat(originUri).isEqualTo(shortenedUri);
     }
 
-    @DisplayName("[URL] uri 주소를 압축해 유효한 shorten url를 생성할 수 있다.")
+    @DisplayName("[URL] shorten url을 생성한다.")
     @Test
-    void createShortenUri() {
+    void shorten_url을_생성한다() {
         String prevRandomUri = randomUri;
         randomUri = urlShorteningService.createShortenUri("https://www.google.com");
-        assertNotEquals(prevRandomUri, randomUri);
+        assertThat(randomUri).isNotEqualTo(prevRandomUri);
     }
 }
