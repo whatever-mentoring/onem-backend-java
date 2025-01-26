@@ -5,8 +5,6 @@ import community.whatever.onembackendjava.repository.ShortenUrlRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
-
 @Service
 @RequiredArgsConstructor
 public class UrlShorteningService {
@@ -22,8 +20,7 @@ public class UrlShorteningService {
     }
 
     public String createShortenUri(String originUrl) {
-        String randomKey = String.valueOf(new Random().nextInt(10000));
-        shortenUrlRepository.store(randomKey, originUrl);
+        String randomKey = shortenUrlRepository.store(originUrl);
         return randomKey;
     }
 }
