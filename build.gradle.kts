@@ -19,7 +19,6 @@ repositories {
 
 dependencies {
 
-    // lombok에서 제공하는 어노테이션을 사용하기 위해 compile로의 디펜던시를 추가.
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
@@ -27,6 +26,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.assertj:assertj-core")
 }
 
 tasks.withType<Test> {
