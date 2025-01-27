@@ -13,14 +13,29 @@ public class UrlShortenRepository {
     private final Map<String, String> shortenUrlMap = new HashMap<>();
     private static final Random random = new Random() ;
 
-    public String searchUrl(String key){
-        if (shortenUrlMap.containsKey(key)) {
-            return shortenUrlMap.get(key) ;
-        }else {
-            throw new IllegalArgumentException("Invalid key");
-        }
-
+    boolean existUrl(String url){
+        return shortenUrlMap.containsValue(url) ;
     }
+    boolean existKey(String key){
+        return shortenUrlMap.containsKey(key) ;
+    }
+
+    //  앞으로 고민 사항 일단 Map 커지면 개선이 필요함 어떻게 key와 value값을 효율적으로 관리할것인지 고민해보기
+    public String searchKey(String url){
+        String resultKey = "" ;
+        for (Map.Entry<String, String> entry : shortenUrlMap.entrySet()){
+            if (entry.getValue().equals(url)){
+                resultKey = entry.getKey() ;
+            }
+        }
+        return resultKey ;
+    }
+    public String searchUrl(String key){
+
+        return shortenUrlMap.get(key) ;
+    }
+
+
 
     public String createKey(String url){
         String uniqueKey = generateKey();
@@ -32,13 +47,11 @@ public class UrlShortenRepository {
 
         return uniqueKey ;
     }
-
-
     // test용
     public void testInsertValue(String key , String Url){
         shortenUrlMap.put(key , Url ) ;
     }
-    // key값이 겹칠 수 있으므로 추후에 다른 Key생성 방법 생각하기
+
     private static String generateKey(){
         return  String.valueOf(random.nextInt(10000));
     }

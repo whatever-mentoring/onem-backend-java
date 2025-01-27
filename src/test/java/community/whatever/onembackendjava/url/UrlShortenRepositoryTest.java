@@ -19,6 +19,20 @@ public class UrlShortenRepositoryTest {
 
 
     @Test
+    @DisplayName("키 존재")
+    public void existUrl(){
+        boolean result = urlShortenRepository.existUrl("https://www.daum.net");
+        Assertions.assertThat(result).isEqualTo(true) ;
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 url 조회")
+    public void existUrlX(){
+        boolean result = urlShortenRepository.existUrl("https://www.youtube.com");
+        Assertions.assertThat(result).isEqualTo(false) ;
+    }
+
+    @Test
     @DisplayName("키 생성")
     public void createKey(){
         String createKey = urlShortenRepository.createKey("https://www.naver.com");
@@ -26,5 +40,18 @@ public class UrlShortenRepositoryTest {
         Assertions.assertThat(createKey).isNotEmpty() ;
     }
 
+    @Test
+    @DisplayName("키 검색")
+    public void searchKey(){
+        String result = urlShortenRepository.searchKey("https://www.daum.net");
+        Assertions.assertThat(result).isNotEmpty() ;
+    }
+
+    @Test
+    @DisplayName("키 검색 X ")
+    public void searchKeyX(){
+        String result = urlShortenRepository.searchKey("https://www.daaaaum.net");
+        Assertions.assertThat(result).isEmpty() ;
+    }
 
 }

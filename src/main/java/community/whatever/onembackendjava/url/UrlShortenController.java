@@ -17,18 +17,23 @@ public class UrlShortenController {
     @PostMapping("/shorten-url/search")
     public String shortenUrlSearch(@RequestBody RequestVO requestVO ) {
         String result ;
-        result = urlShortenService.searchUrl(requestVO.getKey()) ;
-
+        if(!urlShortenService.existKey(requestVO.getKey())){
+            throw new IllegalArgumentException("Invalid key"); // 변경예정
+        }else{
+            result = urlShortenService.searchUrl(requestVO.getKey()) ;
+        }
         return result ;
     }
-
-
     @PostMapping("/shorten-url/create")
     public String shortenUrlCreate(@RequestBody RequestVO requestVO ) {
         String result ;
-        result = urlShortenService.createKey(requestVO.getUrl()) ;
-        return result;
-
+        if(urlShortenService.existUrl(requestVO.getUrl())){
+            result = urlShortenService.searchKey(requestVO.getUrl()) ;
+            return result;
+        }else{
+            result = urlShortenService.createKey(requestVO.getUrl()) ;
+            return result;
+        }
 
     }
 
