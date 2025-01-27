@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class UrlShortenController {
 
 
-    private  UrlShortenService urlShortenService ;
+    private  final UrlShortenService urlShortenService ;
 
     @Autowired
     private UrlShortenController(UrlShortenService urlShortenService){
@@ -25,6 +25,16 @@ public class UrlShortenController {
         return result ;
     }
 
+    @GetMapping("/shorten-url/search/{key}")
+    public String shortenUrlSearch(@PathVariable String key ) {
+        String result ;
+        if(!urlShortenService.existKey(key)){
+            throw new IllegalArgumentException("Invalid key"); // 변경예정
+        }else{
+            result = urlShortenService.searchUrl(key) ;
+        }
+        return result ;
+    }
     @PostMapping("/shorten-url/create")
     public String shortenUrlCreate(@RequestBody RequestVO requestVO ) {
         String result ;
@@ -37,17 +47,5 @@ public class UrlShortenController {
         }
 
     }
-
-    // return시 DTO를 쓸지 말지 다음 스탭에서 고민
-    @GetMapping("/shorten-url/delete")
-    public String shortenUrlDelete(@RequestParam String key){
-        if (urlShortenService.existKey(key)){
-            urlShortenService.deleteKey(key) ;
-            return "삭제되었습니다.";
-        }
-        return "삭제되지않았습니다." ;
-    }
-
-
 
 }
