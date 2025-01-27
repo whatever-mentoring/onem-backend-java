@@ -14,18 +14,8 @@ public class UrlShortenServiceImpl implements  UrlShortenService{
     }
 
     @Override
-    public Boolean existKey(String key) {
-
-        return urlShortenRepository.existKey(key) ;
-    }
-
-    public Boolean existUrl(String url) {
-        return urlShortenRepository.existUrl(url) ;
-    }
-
-    @Override
-    public String searchKey(String url) {
-        return urlShortenRepository.searchKey(url);
+    public String searchUrl(String key) {
+        return urlShortenRepository.searchUrl(key);
     }
 
     @Override
@@ -33,13 +23,4 @@ public class UrlShortenServiceImpl implements  UrlShortenService{
         return urlShortenRepository.createKey(url);
     }
 
-    @Override
-    public String searchUrl(String key) {
-        return urlShortenRepository.searchUrl(key);
-    }
-
-    @Override
-    public int deleteKey(String key) {
-        return urlShortenRepository.deleteKey(key);
-    }
 }
