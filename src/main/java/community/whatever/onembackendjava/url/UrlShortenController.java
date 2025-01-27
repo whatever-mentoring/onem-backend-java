@@ -18,6 +18,7 @@ public class UrlShortenController {
     public String shortenUrlSearch(@RequestBody RequestVO requestVO ) {
         String result ;
         if(!urlShortenService.existKey(requestVO.getKey())){
+            // todo exception 처리 따로할 예정
             throw new IllegalArgumentException("Invalid key"); // 변경예정
         }else{
             result = urlShortenService.searchUrl(requestVO.getKey()) ;
