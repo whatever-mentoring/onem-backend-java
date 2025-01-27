@@ -34,4 +34,7 @@ public class UrlShortenServiceImpl implements  UrlShortenService{
     public String searchUrl(String key) {
         return urlShortenRepository.searchUrl(key);
     }
+    public int deleteKey(String key) {
+        return urlShortenRepository.deleteKey(key);
+    }
 }

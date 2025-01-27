@@ -38,4 +38,13 @@ public class UrlShortenController {
 
     }
 
+    @GetMapping("/shorten-url/delete/{key}")
+    public String shortenUrlDelete(@PathVariable String key){
+    //  delete에 대하여 return 메세지 고민 즁
+        if (urlShortenService.existKey(key)){
+            urlShortenService.deleteKey(key) ;
+            return "true";
+        }
+        return "false" ;
+    }
 }

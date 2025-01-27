@@ -47,6 +47,15 @@ public class UrlShortenRepository {
 
         return uniqueKey ;
     }
+
+    public int deleteKey(String key){
+        if(shortenUrlMap.remove(key) != null){
+            return 1 ;
+        }else {
+            return -1 ;
+        }
+    }
+
     // test용
     public void testInsertValue(String key , String Url){
         shortenUrlMap.put(key , Url ) ;

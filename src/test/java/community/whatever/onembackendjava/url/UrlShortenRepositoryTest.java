@@ -53,5 +53,11 @@ public class UrlShortenRepositoryTest {
         String result = urlShortenRepository.searchKey("https://www.daaaaum.net");
         Assertions.assertThat(result).isEmpty() ;
     }
+    @Test
+    @DisplayName("키 삭제")
+    public void deleteKey(){
+        urlShortenRepository.deleteKey("1234");
+        Assertions.assertThat(urlShortenRepository.existKey("1234")).isFalse() ;
+    }
 
 }
