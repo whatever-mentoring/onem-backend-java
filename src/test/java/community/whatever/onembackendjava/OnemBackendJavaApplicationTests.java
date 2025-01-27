@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class UrlShortenControllerTest {
+class ShortUrlControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -29,34 +29,54 @@ class UrlShortenControllerTest {
     private String searchEndpoint;
 
     @Value("${shortener.origin}")
-    private String originUrl;
+    private String originalUrl;
 
     @Value("${shortener.invalid-key}")
     private String invalidKey;
 
     @Test
-    void createShortenUrlTest() {
-        ResponseEntity<String> response = restTemplate.postForEntity(createEndpoint, originUrl, String.class);
+    void createShortUrlTest() {
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                createEndpoint,
+                originalUrl,
+                String.class
+        );
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
         String generatedKey = response.getBody();
         assertThat(generatedKey).isNotBlank();
     }
 
     @Test
-    void searchShortenUrlTest() {
-        String generatedKey = restTemplate.postForObject(createEndpoint, originUrl, String.class);
+    void getOriginalUrlTest() {
 
-        ResponseEntity<String> response = restTemplate.postForEntity(searchEndpoint, generatedKey, String.class);
+        String generatedKey = restTemplate.postForObject(
+                createEndpoint,
+                originalUrl,
+                String.class
+        );
+
+        ResponseEntity<String> response = restTemplate.getForEntity(
+                searchEndpoint,
+                String.class,
+                generatedKey
+        );
+
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(originUrl);
+        assertThat(response.getBody()).isEqualTo(originalUrl);
     }
 
     @Test
-    void searchShortenUrlInvalidKeyTest() {
+    void getOriginalUrlWithInvalidKeyTest() {
 
-        ResponseEntity<String> response = restTemplate.postForEntity(searchEndpoint, invalidKey, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(
+                searchEndpoint,
+                String.class,
+                invalidKey
+        );
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
