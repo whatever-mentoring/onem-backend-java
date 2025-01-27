@@ -1,4 +1,4 @@
-# onem-backend-kotlin
+# onem-backend-java
 
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
 internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
@@ -44,21 +44,33 @@ url-shortener 는 다음과 같은 요건을 가지고 있습니다.
 2. application run
 
 ```shell
-java -jar build/libs/onem-backend-kotlin-0.0.1-SNAPSHOT.jar
+java -jar build/libs/onem-backend-java-0.0.1-SNAPSHOT.jar
 ````
 
 2. create shorten-url key
 
 ```shell
-curl -X POST --location "http://localhost:8080/shorten-url/create" \
+맥/리눅스
+curl -X POST --location  \
     -H "Content-Type: application/json" \
     -d 'https://www.google.com'
+    
+
+윈도우 
+    
+Invoke-WebRequest -Uri "http://localhost:8080/shorten-url/create" -Method POST -Body 'https://www.google.com' -ContentType "application/json"
 ```
+
+
 
 3. search shorten-url by created key
 
 ```shell
+맥/리눅스
 curl -X POST --location "http://localhost:8080/shorten-url/search" \
     -H "Content-Type: application/json" \
     -d '4888'
+    
+윈도우
+Invoke-WebRequest -Uri "http://localhost:8080/shorten-url/search" -Method POST -Body '4888' -ContentType "application/json"      
 ```
