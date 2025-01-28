@@ -16,7 +16,7 @@ class UrlShortenServiceImplTest {
     private static String tmpString ;
     @BeforeAll
     public static void setUp(){
-        urlShortenService = new UrlShortenServiceImpl(urlShortenRepository) ;
+        urlShortenService = new UrlShortenServiceImpl(new UrlShortenRepository() ) ;
     }
 
     @Test
