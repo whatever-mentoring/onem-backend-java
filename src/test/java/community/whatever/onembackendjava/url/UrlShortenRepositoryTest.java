@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class UrlShortenRepositoryTest {
 
     static UrlShortenRepository urlShortenRepository ;
@@ -25,14 +27,14 @@ public class UrlShortenRepositoryTest {
     public void createKey(){
         String createKey = urlShortenRepository.keyCreate("https://www.naver.com");
         //System.out.println("createKey = " + createKey);
-        Assertions.assertThat(createKey).isNotEmpty() ;
+        assertThat(createKey).isNotEmpty() ;
     }
 
     @Test
     @DisplayName("url 검색")
     public void searchUrl(){
         String result = urlShortenRepository.searchUrl("1234");
-        Assertions.assertThat(result).isNotEmpty() ;
+        assertThat(result).isNotEmpty() ;
     }
 
 }

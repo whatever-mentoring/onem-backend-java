@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UrlShortenServiceImplTest {
@@ -23,7 +24,7 @@ class UrlShortenServiceImplTest {
     @DisplayName("키 생성")
     void keyCreate() {
         String createKey = urlShortenService.keyCreate("https://www.naver.com");
-        Assertions.assertThat(createKey).isNotEmpty() ;
+        assertThat(createKey).isNotEmpty() ;
     }
 
 }
