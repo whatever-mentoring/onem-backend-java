@@ -1,9 +1,7 @@
 package community.whatever.onembackendjava.url;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
@@ -15,8 +13,8 @@ public class UrlShortenController {
     private UrlShortenController(UrlShortenService urlShortenService){
         this.urlShortenService = urlShortenService ;
     }
-    @PostMapping("/shorten-url/search")
-    public String shortenUrlSearch(@RequestBody String key) {
+    @GetMapping("/shorten-url/search/{key}")
+    public String shortenUrlSearch(@PathVariable String key) {
         return urlShortenService.urlSearch(key);
     }
 
