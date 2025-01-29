@@ -12,7 +12,6 @@ public class UrlShortenController {
 
     private  final UrlShortenService urlShortenService ;
 
-    @Autowired
     private UrlShortenController(UrlShortenService urlShortenService){
         this.urlShortenService = urlShortenService ;
     }
