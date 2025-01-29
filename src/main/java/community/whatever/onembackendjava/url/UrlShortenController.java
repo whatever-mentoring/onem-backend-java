@@ -1,30 +1,28 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.url;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 @RestController
 public class UrlShortenController {
 
-    private final Map<String, String> shortenUrls = new HashMap<>();
+    private  final UrlShortenService urlShortenService ;
 
+    @Autowired
+    private UrlShortenController(UrlShortenService urlShortenService){
+        this.urlShortenService = urlShortenService ;
+    }
     @PostMapping("/shorten-url/search")
     public String shortenUrlSearch(@RequestBody String key) {
-        if (!shortenUrls.containsKey(key)) {
-            throw new IllegalArgumentException("Invalid key");
-        }
-        return shortenUrls.get(key);
+        return urlShortenService.urlSearch(key);
     }
 
     @PostMapping("/shorten-url/create")
     public String shortenUrlCreate(@RequestBody String originUrl) {
-        String randomKey = String.valueOf(new Random().nextInt(10000));
-        shortenUrls.put(randomKey, originUrl);
-        return randomKey;
+        return urlShortenService.keyCreate(originUrl);
     }
 }
