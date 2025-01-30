@@ -12,13 +12,13 @@ public class UrlShortenController {
 
     private final UrlShortenService urlShortenService;
 
-    @GetMapping("/search/{urlKey}")
+    @GetMapping("/{urlKey}")
     public ResponseEntity<String> getShortUrl(@PathVariable("urlKey") String urlKey) {
         String originalUrl = urlShortenService.getShortUrl(urlKey);
         return ResponseEntity.ok(originalUrl);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<String> createShortUrl(@RequestBody String originUrl) {
         String shortenUrl = urlShortenService.createShortUrl(originUrl);
         return ResponseEntity.ok(shortenUrl);
