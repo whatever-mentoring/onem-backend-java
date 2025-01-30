@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
-@RequiredArgsConstructor
 public class UrlShortenService {
 
     //TODO: 추후 DB 연결을 통해 데이터를 관리하도록 변경
