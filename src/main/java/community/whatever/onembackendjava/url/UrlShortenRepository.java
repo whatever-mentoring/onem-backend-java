@@ -17,7 +17,6 @@ public class UrlShortenRepository {
     public String keyCreate(String url){
         String uniqueKey = generateKey();
         shortenUrlMap.put(uniqueKey, url) ;
-        System.out.println("uniqueKey = " + uniqueKey);
         return uniqueKey ;
     }
 
