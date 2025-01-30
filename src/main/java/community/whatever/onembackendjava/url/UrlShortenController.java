@@ -13,7 +13,7 @@ public class UrlShortenController {
     private UrlShortenController(UrlShortenService urlShortenService){
         this.urlShortenService = urlShortenService ;
     }
-    @GetMapping("/shorten-url/search/{key}")
+    @GetMapping("/shorten-url/{key}")
     public String shortenUrlSearch(@PathVariable String key) {
         return urlShortenService.urlSearch(key);
     }
