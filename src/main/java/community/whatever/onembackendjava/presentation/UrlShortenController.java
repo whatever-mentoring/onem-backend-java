@@ -16,13 +16,16 @@ public class UrlShortenController {
         this.urlShortenService = urlShortenService;
     }
 
-    @GetMapping("/shorten-url/{shortenUrlKey}")
-    public String getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
-        return urlShortenService.getOriginUrlByShortenUrlKey(shortenUrlKey);
+    @PostMapping("/shorten-url")
+    public ShortenUrlResponse createShortenUrl(@RequestBody ShortenUrlRequest request) {
+        String shortenUrl = urlShortenService.createShortenUrl(request.getOriginUrl());
+        return new ShortenUrlResponse(shortenUrl);
     }
 
-    @PostMapping("/shorten-url")
-    public String createShortenUrl(@RequestBody String originUrl) {
-        return urlShortenService.createShortenUrl(originUrl);
+    @GetMapping("/shorten-url/{shortenUrlKey}")
+    public GetOriginUrlResponse getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
+        String originUrl = urlShortenService.getOriginUrlByShortenUrlKey(shortenUrlKey);
+        return new GetOriginUrlResponse(originUrl);
     }
+
 }
