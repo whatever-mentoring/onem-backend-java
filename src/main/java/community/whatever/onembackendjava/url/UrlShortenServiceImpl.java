@@ -8,7 +8,6 @@ public class UrlShortenServiceImpl implements UrlShortenService{
     private  UrlShortenRepository urlShortenRepository ;
 
 
-    @Autowired
     public UrlShortenServiceImpl(UrlShortenRepository urlShortenRepository) {
         this.urlShortenRepository = urlShortenRepository ;
     }
