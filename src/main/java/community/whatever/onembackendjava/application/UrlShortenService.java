@@ -16,15 +16,15 @@ public class UrlShortenService {
         this.urlShortenRepository = urlShortenRepository;
     }
 
-    public String getOriginUrlByKey(String key) {
-        return urlShortenRepository.findByKey(key)
+    public String getOriginUrlByShortenUrlKey(String shortenUrlKey) {
+        return urlShortenRepository.findByShortenUrlKey(shortenUrlKey)
             .orElseThrow(() -> new NoSuchElementException("존재하지 않는 key입니다."));
     }
 
     public String createShortenUrl(String originUrl) {
-        String key = generateKey();
-        urlShortenRepository.save(key, originUrl);
-        return key;
+        String shortenUrlKey = generateKey();
+        urlShortenRepository.save(shortenUrlKey, originUrl);
+        return shortenUrlKey;
     }
 
     private String generateKey() {

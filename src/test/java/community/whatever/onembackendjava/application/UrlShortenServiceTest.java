@@ -19,7 +19,7 @@ class UrlShortenServiceTest {
     void shorten_url을_생성하고_조회한다() {
         String expectedOriginUrl = "https://www.google.com";
         String key = urlShortenService.createShortenUrl(expectedOriginUrl);
-        String originUrl = urlShortenService.getOriginUrlByKey(key);
+        String originUrl = urlShortenService.getOriginUrlByShortenUrlKey(key);
 
         assertThat(originUrl).isEqualTo(expectedOriginUrl);
     }
@@ -29,7 +29,7 @@ class UrlShortenServiceTest {
         String nonExistingKey = "nonExistingKey";
 
         assertThrows(NoSuchElementException.class, () -> {
-            urlShortenService.getOriginUrlByKey(nonExistingKey);
+            urlShortenService.getOriginUrlByShortenUrlKey(nonExistingKey);
         });
     }
 

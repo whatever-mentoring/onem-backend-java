@@ -16,9 +16,9 @@ public class UrlShortenController {
         this.urlShortenService = urlShortenService;
     }
 
-    @GetMapping("/shorten-url/{key}")
-    public String getOriginUrlByKey(@PathVariable String key) {
-        return urlShortenService.getOriginUrlByKey(key);
+    @GetMapping("/shorten-url/{shortenUrlKey}")
+    public String getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
+        return urlShortenService.getOriginUrlByShortenUrlKey(shortenUrlKey);
     }
 
     @PostMapping("/shorten-url")

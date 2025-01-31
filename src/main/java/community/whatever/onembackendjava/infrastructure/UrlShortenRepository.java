@@ -10,11 +10,11 @@ public class UrlShortenRepository {
 
     private final Map<String, String> shortenUrls = new HashMap<>();
 
-    public Optional<String> findByKey(String key) {
-        return Optional.ofNullable(shortenUrls.get(key));
+    public Optional<String> findByShortenUrlKey(String shortenUrlKey) {
+        return Optional.ofNullable(shortenUrls.get(shortenUrlKey));
     }
 
-    public void save(String key, String originUrl) {
-        shortenUrls.put(key, originUrl);
+    public void save(String shortenUrlKey, String originUrl) {
+        shortenUrls.put(shortenUrlKey, originUrl);
     }
 }
