@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.infrastructure;
+package community.whatever.onembackendjava.repository;
 
 import java.util.HashMap;
 import java.util.Map;

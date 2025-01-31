@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.presentation;
+package community.whatever.onembackendjava.controller.response;
 
 public class GetOriginUrlResponse {
     private String originUrl;

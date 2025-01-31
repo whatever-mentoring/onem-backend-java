@@ -1,8 +1,7 @@
-package community.whatever.onembackendjava.application;
+package community.whatever.onembackendjava.service;
 
-import community.whatever.onembackendjava.domain.NotFoundShortenUrlException;
-import community.whatever.onembackendjava.infrastructure.UrlShortenRepository;
-import java.util.NoSuchElementException;
+import community.whatever.onembackendjava.common.exception.notfound.NotFoundShortenUrlException;
+import community.whatever.onembackendjava.repository.UrlShortenRepository;
 import java.util.Random;
 import org.springframework.stereotype.Service;
 

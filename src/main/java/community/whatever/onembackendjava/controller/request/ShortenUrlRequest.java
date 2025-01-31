@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.presentation;
+package community.whatever.onembackendjava.controller.request;
 
 public class ShortenUrlRequest {
     private String originUrl;

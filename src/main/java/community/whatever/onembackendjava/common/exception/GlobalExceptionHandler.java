@@ -1,6 +1,6 @@
-package community.whatever.onembackendjava.presentation;
+package community.whatever.onembackendjava.common.exception;
 
-import community.whatever.onembackendjava.domain.NotFoundShortenUrlException;
+import community.whatever.onembackendjava.common.exception.notfound.NotFoundShortenUrlException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
