@@ -1,5 +1,6 @@
 package community.whatever.onembackendjava.application;
 
+import community.whatever.onembackendjava.domain.NotFoundShortenUrlException;
 import community.whatever.onembackendjava.infrastructure.UrlShortenRepository;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -18,7 +19,7 @@ public class UrlShortenService {
 
     public String getOriginUrlByShortenUrlKey(String shortenUrlKey) {
         return urlShortenRepository.findByShortenUrlKey(shortenUrlKey)
-            .orElseThrow(() -> new NoSuchElementException("존재하지 않는 key입니다."));
+            .orElseThrow(NotFoundShortenUrlException::new);
     }
 
     public String createShortenUrl(String originUrl) {
