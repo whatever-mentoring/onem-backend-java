@@ -12,9 +12,9 @@ public class UrlShortenService {
     }
 
 
-    public String urlSearch(String key) {
+    public String getUrlByKey(String key) {
         if(urlShortenRepository.existKey(key)){
-            return  urlShortenRepository.searchUrl(key) ;
+            return  urlShortenRepository.getUrl(key) ;
         }else{
             throw new IllegalArgumentException("Invalid key");
         }
@@ -22,7 +22,7 @@ public class UrlShortenService {
 
 
 
-    public String keyCreate(String url) {
-        return urlShortenRepository.keyCreate(url);
+    public String createKey(String url) {
+        return urlShortenRepository.createKey(url);
     }
 }

@@ -20,7 +20,7 @@ class UrlShortenServicelTest {
     @Test
     @DisplayName("키 생성")
     void keyCreate() {
-        String createKey = urlShortenService.keyCreate("https://www.naver.com");
+        String createKey = urlShortenService.createKey("https://www.naver.com");
         assertThat(createKey).isNotEmpty() ;
     }
 

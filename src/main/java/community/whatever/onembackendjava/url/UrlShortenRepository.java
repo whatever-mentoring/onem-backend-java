@@ -1,11 +1,12 @@
 package community.whatever.onembackendjava.url;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
+@Slf4j
 @Repository
 public class UrlShortenRepository {
     private final Map<String, String> shortenUrlMap = new HashMap<>();
@@ -14,13 +15,13 @@ public class UrlShortenRepository {
     boolean existKey(String key){
         return shortenUrlMap.containsKey(key) ;
     }
-    public String keyCreate(String url){
+    public String createKey(String url){
         String uniqueKey = generateKey();
         shortenUrlMap.put(uniqueKey, url) ;
         return uniqueKey ;
     }
 
-    public String searchUrl(String key){
+    public String getUrl(String key){
         return shortenUrlMap.get(key) ;
     }
 
