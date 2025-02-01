@@ -2,7 +2,6 @@ package community.whatever.onembackendjava.service;
 
 import community.whatever.onembackendjava.common.exception.BusinessException;
 import community.whatever.onembackendjava.common.exception.ErrorCode;
-import community.whatever.onembackendjava.common.exception.notfound.NotFoundShortenUrlException;
 import community.whatever.onembackendjava.component.UrlShortener;
 import community.whatever.onembackendjava.repository.UrlShortenRepository;
 import org.springframework.stereotype.Service;
