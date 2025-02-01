@@ -9,15 +9,13 @@ import org.springframework.stereotype.Service;
 public class UrlShortenService {
 
     private final UrlShortenRepository urlShortenRepository;
-    private final UrlShortener urlShortener;
 
     public UrlShortenService(UrlShortenRepository urlShortenRepository) {
         this.urlShortenRepository = urlShortenRepository;
-        this.urlShortener = new UrlShortener();
     }
 
     public String createShortenUrl(String originUrl) {
-        String shortenUrlKey = urlShortener.shorten();
+        String shortenUrlKey = UrlShortener.shorten();
         urlShortenRepository.save(shortenUrlKey, originUrl);
         return shortenUrlKey;
     }

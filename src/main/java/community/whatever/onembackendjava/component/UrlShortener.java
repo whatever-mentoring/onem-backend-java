@@ -7,7 +7,7 @@ public class UrlShortener {
 
     private static final Random RANDOM = new Random();
 
-    public String shorten() {
+    public static String shorten() {
         return String.valueOf(RANDOM.nextInt(10000));
     }
 
