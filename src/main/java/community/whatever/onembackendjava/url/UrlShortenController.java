@@ -14,12 +14,12 @@ public class UrlShortenController {
         this.urlShortenService = urlShortenService ;
     }
     @GetMapping("/shorten-url/{key}")
-    public String shortenUrlSearch(@PathVariable String key) {
-        return urlShortenService.urlSearch(key);
+    public String getUrlByKey(@PathVariable String key) {
+        return urlShortenService.getUrlByKey(key);
     }
 
     @PostMapping("/shorten-url/create")
     public String shortenUrlCreate(@RequestBody String originUrl) {
-        return urlShortenService.keyCreate(originUrl);
+        return urlShortenService.createKey(originUrl);
     }
 }
