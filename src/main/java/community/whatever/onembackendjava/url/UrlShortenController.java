@@ -1,9 +1,7 @@
 package community.whatever.onembackendjava.url;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Random;
 
 @RestController
 public class UrlShortenController {
@@ -13,13 +11,13 @@ public class UrlShortenController {
     private UrlShortenController(UrlShortenService urlShortenService){
         this.urlShortenService = urlShortenService ;
     }
-    @GetMapping("/shorten-url/{key}")
+    @GetMapping("/shortenUrl/{key}")
     public String getUrlByKey(@PathVariable String key) {
         return urlShortenService.getUrlByKey(key);
     }
 
-    @PostMapping("/shorten-url/create")
-    public String shortenUrlCreate(@RequestBody String originUrl) {
-        return urlShortenService.createKey(originUrl);
+    @PostMapping("/shortenUrl/create")
+    public String shortenUrlCreate(@RequestBody requestVO request) {
+        return urlShortenService.createKey(request.getUrl());
     }
 }
