@@ -1,5 +1,7 @@
 package community.whatever.onembackendjava.service;
 
+import community.whatever.onembackendjava.common.exception.BusinessException;
+import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.notfound.NotFoundShortenUrlException;
 import community.whatever.onembackendjava.component.UrlShortener;
 import community.whatever.onembackendjava.repository.UrlShortenRepository;
@@ -22,7 +24,7 @@ public class UrlShortenService {
 
     public String getOriginUrlByShortenUrlKey(String shortenUrlKey) {
         return urlShortenRepository.findByShortenUrlKey(shortenUrlKey)
-            .orElseThrow(NotFoundShortenUrlException::new);
+            .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
     }
 
 }
