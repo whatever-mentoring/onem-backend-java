@@ -1,0 +1,11 @@
+### POST - shortenUrl 생성
+POST {{url-shorten-api}}/shorten-url
+Content-Type: application/json
+
+{
+  "originUrl": "https://www.google.com"
+}
+
+### GET - originUrl 조회 (with shortenUrl)
+GET {{url-shorten-api}}/shorten-url/2512
+
