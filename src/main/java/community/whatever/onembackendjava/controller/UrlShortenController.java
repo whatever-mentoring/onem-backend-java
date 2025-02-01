@@ -2,7 +2,6 @@ package community.whatever.onembackendjava.controller;
 
 import community.whatever.onembackendjava.service.UrlShortenService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
