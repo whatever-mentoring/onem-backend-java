@@ -3,9 +3,8 @@ package community.whatever.onembackendjava.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import community.whatever.onembackendjava.common.exception.notfound.NotFoundShortenUrlException;
+import community.whatever.onembackendjava.common.exception.BusinessException;
 import community.whatever.onembackendjava.service.UrlShortenService;
-import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +28,7 @@ class UrlShortenServiceTest {
     void 존재하지_않는_shorten_url_key로_조회하면_예외가_발생한다() {
         String nonExistingKey = "nonExistingKey";
 
-        assertThrows(NotFoundShortenUrlException.class, () -> {
+        assertThrows(BusinessException.class, () -> {
             urlShortenService.getOriginUrlByShortenUrlKey(nonExistingKey);
         });
     }
