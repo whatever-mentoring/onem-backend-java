@@ -1,0 +1,15 @@
+= Short URL API 문서
+:toc:
+:snippets: ../../../build/generated-snippets
+
+== 단축 URL 생성
+include::{snippets}/create-short-url/http-request.adoc[]
+include::{snippets}/create-short-url/http-response.adoc[]
+
+== 원본 URL 조회
+include::{snippets}/get-original-url/http-request.adoc[]
+include::{snippets}/get-original-url/http-response.adoc[]
+
+== 잘못된 키 조회 (예외 처리)
+include::{snippets}/get-original-url-invalid-key/http-request.adoc[]
+include::{snippets}/get-original-url-invalid-key/http-response.adoc[]
