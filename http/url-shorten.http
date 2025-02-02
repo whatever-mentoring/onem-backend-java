@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ### GET - originUrl 조회 (with shortenUrl)
-GET {{url-shorten-api}}/shorten-url/2891
+GET {{url-shorten-api}}/shorten-url/7346
 
-### GET - originUrl 조회 (with shortenUrl) - NotFound 에러
+### GET - originUrl 조회 (with shortenUrl) - NotFoundException 에러
 GET {{url-shorten-api}}/shorten-url/2891

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import community.whatever.onembackendjava.common.exception.custom.BusinessException;
+import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.service.UrlShortenService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ class UrlShortenServiceTest {
         String nonExistingKey = "nonExistingKey";
 
         assertThatThrownBy(() -> urlShortenService.getOriginUrlByShortenUrlKey(nonExistingKey))
-            .isInstanceOf(BusinessException.class)
-            .hasMessage("찾을 수 없음");
+            .isInstanceOf(NotFoundException.class)
+            .hasMessage("단축 URL을 찾을 수 없습니다.");
 
     }
 
