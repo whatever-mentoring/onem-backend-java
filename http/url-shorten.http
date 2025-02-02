@@ -1,0 +1,13 @@
+### POST - shortenUrl 생성
+POST {{url-shorten-api}}/shorten-url
+Content-Type: application/json
+
+{
+  "originUrl": "https://www.google.com"
+}
+
+### GET - originUrl 조회 (with shortenUrl)
+GET {{url-shorten-api}}/shorten-url/7346
+
+### GET - originUrl 조회 (with shortenUrl) - NotFoundException 에러
+GET {{url-shorten-api}}/shorten-url/2891
