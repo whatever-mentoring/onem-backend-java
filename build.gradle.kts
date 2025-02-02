@@ -24,7 +24,6 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     compileOnly  ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
-    testImplementation ("io.rest-assured:rest-assured")
 }
 
 tasks.withType<Test> {
