@@ -10,4 +10,4 @@ Content-Type: application/json
 GET {{url-shorten-api}}/shorten-url/2891
 
 ### GET - originUrl 조회 (with shortenUrl) - NotFound 에러
-GET {{url-shorten-api}}/shorten-url/1234
+GET {{url-shorten-api}}/shorten-url/2891

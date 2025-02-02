@@ -1,4 +1,6 @@
-package community.whatever.onembackendjava.common.exception;
+package community.whatever.onembackendjava.common.exception.custom;
+
+import community.whatever.onembackendjava.common.exception.ErrorCode;
 
 public class BusinessException extends RuntimeException{
 
