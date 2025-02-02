@@ -17,7 +17,7 @@ public class UrlShortenController {
     }
 
     @PostMapping("/shorten-url")
-    public String shortenUrlCreate(@RequestBody RequestVO request) {
+    public String shortenUrlCreate(@RequestBody Request request) {
         return urlShortenService.createKey(request.url());
     }
 }
