@@ -1,5 +1,7 @@
 package community.whatever.onembackendjava.component;
 
+import community.whatever.onembackendjava.common.exception.ErrorCode;
+import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +17,7 @@ public class UrlValidator {
         String domain = extractDomain(url);
 
         if (BLOCKED_DOMAINS.contains(domain)) {
-            throw new IllegalArgumentException("금지된 URL");
+            throw new ValidationException(ErrorCode.BLOCKED_URL);
         }
 
     }
@@ -25,7 +27,7 @@ public class UrlValidator {
         if (matcher.find()) {
             return matcher.group(1).split("/")[0];
         }
-        throw new IllegalArgumentException("잘못된 URL");
+        throw new ValidationException(ErrorCode.INVALID_URL_FORMAT);
     }
 
 }
