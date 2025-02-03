@@ -24,9 +24,11 @@ public class UrlValidator {
 
     private static String extractDomain(String url) {
         Matcher matcher = URL_PATTERN.matcher(url);
+
         if (matcher.find()) {
             return matcher.group(1).split("/")[0];
         }
+
         throw new ValidationException(ErrorCode.INVALID_URL_FORMAT);
     }
 

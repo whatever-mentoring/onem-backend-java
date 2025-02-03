@@ -3,8 +3,8 @@ package community.whatever.onembackendjava.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import community.whatever.onembackendjava.common.exception.custom.BusinessException;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
+import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import community.whatever.onembackendjava.service.UrlShortenService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,24 @@ class UrlShortenServiceTest {
         String originUrl = urlShortenService.getOriginUrlByShortenUrlKey(key);
 
         assertThat(originUrl).isEqualTo(expectedOriginUrl);
+    }
+
+    @Test
+    void 잘못된_url일_경우_예외가_발생한다() {
+        String originUrl = "ftp://www.google.com";
+
+        assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
+            .isInstanceOf(ValidationException.class)
+            .hasMessage("잘못된 URL 형식입니다.");
+    }
+
+    @Test
+    void 사용_불가능한_url일_경우_예외가_발생한다() {
+        String originUrl = "https://www.example.com";
+
+        assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
+            .isInstanceOf(ValidationException.class)
+            .hasMessage("사용 불가능한 URL입니다.");
     }
 
     @Test
