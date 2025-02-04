@@ -1,17 +1,23 @@
 package community.whatever.onembackendjava.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class UrlShortenServiceTest {
 
+    @Mock
+    private BlacklistService blacklistService;
+
+    @InjectMocks
     private UrlShortenService urlShortenService;
-    @BeforeEach
-    void setUp(){
-        urlShortenService = new UrlShortenService();
-    }
 
     @Test
     void ShortenUrl_을_생성하고_조회한다(){
@@ -30,7 +36,13 @@ public class UrlShortenServiceTest {
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
                 urlShortenService.getShortUrl(invalidKey)
         );
+    @Test
+    void 블랙리스트로_등록된_URL_은_예외가_발생한다(){
+        String blockedUrl = "https://blocked.com";
+        when(blacklistService.isBlocked(blockedUrl)).thenReturn(true);
 
-        assertEquals("Invalid Key: " + invalidKey, ex.getMessage());
+        assertThatThrownBy(() -> urlShortenService.createShortUrl(blockedUrl))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Blocked URL: " + blockedUrl);
     }
 }

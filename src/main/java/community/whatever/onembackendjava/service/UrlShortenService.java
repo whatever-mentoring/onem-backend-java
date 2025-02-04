@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class UrlShortenService {
 
     //TODO: 추후 DB 연결을 통해 데이터를 관리하도록 변경
     private final Map<String, String> shortenUrls = new HashMap<>();
+    private BlacklistService blacklistService;
 
     public String getShortUrl(String urlKey){
         if (!shortenUrls.containsKey(urlKey)) {
@@ -21,6 +23,10 @@ public class UrlShortenService {
     }
 
     public String createShortUrl(String originUrl) {
+        if(blacklistService.isBlocked(originUrl)){
+            throw new IllegalArgumentException("Blocked URL: " + originUrl);
+        }
+
         //TODO: 추후 중복 가능성을 고려하여 UUID 로 변경
         String randomKey = String.valueOf(new Random().nextInt(10000));
         shortenUrls.put(randomKey, originUrl);
