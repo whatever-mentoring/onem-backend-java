@@ -6,8 +6,24 @@ Content-Type: application/json
   "originUrl": "https://www.google.com"
 }
 
+### POST - shortenUrl 생성 - ValidationException 에러 (잘못된 URL 형식)
+POST {{url-shorten-api}}/shorten-url
+Content-Type: application/json
+
+{
+  "originUrl": "ftp://www.google.com"
+}
+
+### POST - shortenUrl 생성 - ValidationException 에러 (사용 불가능한 URL)
+POST {{url-shorten-api}}/shorten-url
+Content-Type: application/json
+
+{
+  "originUrl": "https://www.example.com"
+}
+
 ### GET - originUrl 조회 (with shortenUrl)
-GET {{url-shorten-api}}/shorten-url/7346
+GET {{url-shorten-api}}/shorten-url/6929
 
 ### GET - originUrl 조회 (with shortenUrl) - NotFoundException 에러
 GET {{url-shorten-api}}/shorten-url/2891

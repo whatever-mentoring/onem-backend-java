@@ -4,7 +4,13 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
 
+
+
+    INVALID_URL_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 URL 형식입니다."),
+    BLOCKED_URL(HttpStatus.FORBIDDEN, "사용 불가능한 URL입니다."),
+
     NOT_FOUND_SHORTEN_URL(HttpStatus.NOT_FOUND, "단축 URL을 찾을 수 없습니다.");
+
 
     private final HttpStatus httpStatus;
     private final String message;

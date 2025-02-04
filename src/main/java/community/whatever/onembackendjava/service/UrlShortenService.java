@@ -1,9 +1,9 @@
 package community.whatever.onembackendjava.service;
 
-import community.whatever.onembackendjava.common.exception.custom.BusinessException;
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.component.UrlShortener;
+import community.whatever.onembackendjava.component.UrlValidator;
 import community.whatever.onembackendjava.repository.UrlShortenRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,7 @@ public class UrlShortenService {
     }
 
     public String createShortenUrl(String originUrl) {
+        UrlValidator.validateUrl(originUrl);
         String shortenUrlKey = UrlShortener.shorten();
         urlShortenRepository.save(shortenUrlKey, originUrl);
         return shortenUrlKey;
