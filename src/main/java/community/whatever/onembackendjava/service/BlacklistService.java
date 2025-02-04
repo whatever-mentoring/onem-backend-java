@@ -42,4 +42,9 @@ public class BlacklistService {
         return blacklistDomains.contains(domain);
     }
 
+    @Scheduled(cron = "0 0 1 * * *")
+    public void reloadBlacklist(){
+        loadBlacklist();
+    }
+
 }
