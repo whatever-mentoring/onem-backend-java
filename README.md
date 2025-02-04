@@ -1,5 +1,10 @@
 # onem-backend-java
 
+## 📄 API 문서
+url-shortener에 대한 자세한 API 문서는 아래 링크에서 확인할 수 있습니다.  
+👉 [Postman API Documentation](https://documenter.getpostman.com/view/20985719/2sAYX5MNuS)
+
+
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
 internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
 해당 서비스는 정상 운영 중이긴 하지만 안타깝게도 전임자는 퇴사 했고, 알 수 없는 문제가 많이 있습니다.
@@ -12,11 +17,6 @@ url-shortener 는 다음과 같은 요건을 가지고 있습니다.
 - internal vpc 에서 운영되고 있어 인증/인가 로직이 없습니다.
 - 인프라 스펙은 1 core, 1GB memory, 1 pod 로 운영되고 있습니다.
 - 기존 트래픽은 RPM 30 입니다.
-
-## 📄 API 문서
-자세한 API 문서는 아래 링크에서 확인할 수 있습니다.  
-👉 [Postman API Documentation](https://documenter.getpostman.com/view/20985719/2sAYX5MNuS)
-
 
 ### guideline
 
