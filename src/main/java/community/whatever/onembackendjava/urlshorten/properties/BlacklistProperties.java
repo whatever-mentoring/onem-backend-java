@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.properties;
+package community.whatever.onembackendjava.urlshorten.properties;
 
 
 import java.util.Set;

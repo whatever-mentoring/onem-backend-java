@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.repository;
+package community.whatever.onembackendjava.urlshorten.repository;
 
 import java.util.HashMap;
 import java.util.Map;

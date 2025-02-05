@@ -1,9 +1,9 @@
-package community.whatever.onembackendjava.service;
+package community.whatever.onembackendjava.urlshorten.service;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
-import community.whatever.onembackendjava.component.UrlShortener;
-import community.whatever.onembackendjava.repository.UrlShortenRepository;
+import community.whatever.onembackendjava.urlshorten.component.UrlShortener;
+import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
 import org.springframework.stereotype.Service;
 
 @Service

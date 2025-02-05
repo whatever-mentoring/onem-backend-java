@@ -1,8 +1,8 @@
-package community.whatever.onembackendjava.service;
+package community.whatever.onembackendjava.urlshorten.service;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
-import community.whatever.onembackendjava.properties.BlacklistProperties;
+import community.whatever.onembackendjava.urlshorten.properties.BlacklistProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.springframework.stereotype.Service;
