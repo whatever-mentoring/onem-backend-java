@@ -1,5 +1,10 @@
 # onem-backend-java
 
+## 📄 API 문서
+url-shortener에 대한 자세한 API 문서는 아래 링크에서 확인할 수 있습니다.  
+👉 [Postman API Documentation](https://documenter.getpostman.com/view/20985719/2sAYX5MNuS)
+
+
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
 internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
 해당 서비스는 정상 운영 중이긴 하지만 안타깝게도 전임자는 퇴사 했고, 알 수 없는 문제가 많이 있습니다.
