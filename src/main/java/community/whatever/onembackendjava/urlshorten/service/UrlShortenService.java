@@ -3,6 +3,7 @@ package community.whatever.onembackendjava.urlshorten.service;
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.urlshorten.component.UrlShortener;
+import community.whatever.onembackendjava.urlshorten.component.ValidateUrlShortenService;
 import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
 import org.springframework.stereotype.Service;
 

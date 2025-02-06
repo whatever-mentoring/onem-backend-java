@@ -1,13 +1,13 @@
-package community.whatever.onembackendjava.urlshorten.service;
+package community.whatever.onembackendjava.urlshorten.component;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import community.whatever.onembackendjava.urlshorten.properties.BlacklistProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ValidateUrlShortenService {
 
     private final BlacklistProperties blacklistProperties;
