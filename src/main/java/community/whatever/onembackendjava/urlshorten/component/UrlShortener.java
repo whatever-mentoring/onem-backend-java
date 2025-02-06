@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.component;
+package community.whatever.onembackendjava.urlshorten.component;
 
 import java.util.Random;
 

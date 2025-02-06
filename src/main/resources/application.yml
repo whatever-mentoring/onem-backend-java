@@ -1,1 +1,3 @@
-spring.application.name=onem-backend-java
+spring:
+  config:
+    import: classpath:application-blacklist.yml
