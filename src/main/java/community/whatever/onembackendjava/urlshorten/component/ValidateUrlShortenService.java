@@ -19,7 +19,7 @@ public class ValidateUrlShortenService {
     public void validateUrl(String url) {
         String domain = extractDomain(url);
 
-        if (blacklistProperties.domains().contains(domain)) {
+        if (blacklistProperties.getDomains().contains(domain)) {
             throw new ValidationException(ErrorCode.BLOCKED_URL);
         }
 
