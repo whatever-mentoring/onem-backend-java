@@ -43,4 +43,8 @@ public class UrlShortenService {
         return urlShorten.getOriginUrl();
     }
 
+    public void deleteByExpiredAtBefore(LocalDateTime now) {
+        urlShortenRepository.deleteByExpiredAtBefore(now);
+    }
+
 }

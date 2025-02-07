@@ -1,6 +1,7 @@
 package community.whatever.onembackendjava.urlshorten.repository;
 
 import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,4 +20,7 @@ public class UrlShortenRepository {
         return Optional.ofNullable(shortenUrls.get(shortenUrlKey));
     }
 
+    public void deleteByExpiredAtBefore(LocalDateTime now) {
+        shortenUrls.values().removeIf(urlShorten -> urlShorten.getExpiredAt().isBefore(now));
+    }
 }
