@@ -8,11 +8,11 @@ import java.net.URL;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidateUrlShortenService {
+public class UrlShortenValidator {
 
     private final BlacklistProperties blacklistProperties;
 
-    public ValidateUrlShortenService(BlacklistProperties blacklistProperties) {
+    public UrlShortenValidator(BlacklistProperties blacklistProperties) {
         this.blacklistProperties = blacklistProperties;
     }
 
