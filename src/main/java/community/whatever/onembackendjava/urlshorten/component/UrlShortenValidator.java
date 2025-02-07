@@ -1,25 +1,25 @@
-package community.whatever.onembackendjava.urlshorten.service;
+package community.whatever.onembackendjava.urlshorten.component;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import community.whatever.onembackendjava.urlshorten.properties.BlacklistProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class ValidateUrlShortenService {
+@Component
+public class UrlShortenValidator {
 
     private final BlacklistProperties blacklistProperties;
 
-    public ValidateUrlShortenService(BlacklistProperties blacklistProperties) {
+    public UrlShortenValidator(BlacklistProperties blacklistProperties) {
         this.blacklistProperties = blacklistProperties;
     }
 
     public void validateUrl(String url) {
         String domain = extractDomain(url);
 
-        if (blacklistProperties.domains().contains(domain)) {
+        if (blacklistProperties.getDomains().contains(domain)) {
             throw new ValidationException(ErrorCode.BLOCKED_URL);
         }
 

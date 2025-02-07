@@ -3,23 +3,24 @@ package community.whatever.onembackendjava.urlshorten.service;
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.urlshorten.component.UrlShortener;
+import community.whatever.onembackendjava.urlshorten.component.UrlShortenValidator;
 import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UrlShortenService {
 
-    private final ValidateUrlShortenService validateUrlShortenService;
+    private final UrlShortenValidator urlShortenValidator;
     private final UrlShortenRepository urlShortenRepository;
 
-    public UrlShortenService(ValidateUrlShortenService validateUrlShortenService,
+    public UrlShortenService(UrlShortenValidator urlShortenValidator,
         UrlShortenRepository urlShortenRepository) {
-        this.validateUrlShortenService = validateUrlShortenService;
+        this.urlShortenValidator = urlShortenValidator;
         this.urlShortenRepository = urlShortenRepository;
     }
 
     public String createShortenUrl(String originUrl) {
-        validateUrlShortenService.validateUrl(originUrl);
+        urlShortenValidator.validateUrl(originUrl);
         String shortenUrlKey = UrlShortener.shorten();
         urlShortenRepository.save(shortenUrlKey, originUrl);
         return shortenUrlKey;

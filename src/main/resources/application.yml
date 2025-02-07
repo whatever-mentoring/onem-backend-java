@@ -1,3 +1,9 @@
-spring:
-  config:
-    import: classpath:application-blacklist.yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health
+
+blacklist:
+  domains:
+    - www.example.com
