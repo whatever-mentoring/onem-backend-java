@@ -1,7 +1,6 @@
 package community.whatever.onembackendjava.urlshorten.repository;
 
 import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +12,7 @@ public class UrlShortenRepository {
     private final Map<String, UrlShorten> shortenUrls = new HashMap<>();
 
     public void save(UrlShorten urlShorten) {
-        shortenUrls.put(urlShorten.getShortenUrlKey(), urlShorten);
+        shortenUrls.put(urlShorten.shortenUrlKey(), urlShorten);
     }
 
     public Optional<UrlShorten> findByShortenUrlKey(String shortenUrlKey) {

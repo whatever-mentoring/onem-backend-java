@@ -14,16 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlShortenService {
 
+    private final UrlShortenProperties urlShortenProperties;
     private final UrlShortenValidator urlShortenValidator;
     private final UrlShortenRepository urlShortenRepository;
-    private final UrlShortenProperties urlShortenProperties;
 
-    public UrlShortenService(UrlShortenValidator urlShortenValidator,
-        UrlShortenRepository urlShortenRepository,
-        UrlShortenProperties urlShortenProperties) {
+    public UrlShortenService(UrlShortenProperties urlShortenProperties,
+        UrlShortenValidator urlShortenValidator, UrlShortenRepository urlShortenRepository) {
+        this.urlShortenProperties = urlShortenProperties;
         this.urlShortenValidator = urlShortenValidator;
         this.urlShortenRepository = urlShortenRepository;
-        this.urlShortenProperties = urlShortenProperties;
     }
 
     public String createShortenUrl(String originUrl) {
@@ -41,10 +40,10 @@ public class UrlShortenService {
         UrlShorten urlShorten = urlShortenRepository.findByShortenUrlKey(shortenUrlKey)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_SHORTEN_URL));
 
-        if (urlShorten.getExpiredAt().isBefore(LocalDateTime.now())) {
+        if (urlShorten.expiredAt().isBefore(LocalDateTime.now())) {
             throw new ExpiredUrlException(ErrorCode.EXPIRED_SHORTEN_URL);
         }
 
-        return urlShorten.getOriginUrl();
+        return urlShorten.originUrl();
     }
 }
