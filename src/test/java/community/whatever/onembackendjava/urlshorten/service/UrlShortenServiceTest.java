@@ -10,7 +10,12 @@ import community.whatever.onembackendjava.common.exception.custom.ValidationExce
 import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
 import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,22 +36,23 @@ class UrlShortenServiceTest {
 
         assertThat(originUrl).isEqualTo(expectedOriginUrl);
     }
-    @Test
-    void 잘못된_url일_경우_예외가_발생한다() {
-        String originUrl = "ftp://www.google.com";
 
+    @ParameterizedTest
+    @MethodSource("invalidUrlProvider")
+    void 잘못된_입력값으로_요청하면_예외가_발생한다(String originUrl, Class<? extends RuntimeException> expectedException, String expectedMessage) {
         assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
-            .isInstanceOf(ValidationException.class)
-            .hasMessage(ErrorCode.INVALID_URL_FORMAT.getMessage());
+            .isInstanceOf(expectedException)
+            .hasMessage(expectedMessage);
     }
 
-    @Test
-    void 사용_불가능한_url일_경우_예외가_발생한다() {
-        String originUrl = "https://www.example.com";
-
-        assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
-            .isInstanceOf(ValidationException.class)
-            .hasMessage(ErrorCode.BLOCKED_URL.getMessage());
+    private static Stream<Arguments> invalidUrlProvider() {
+        return Stream.of(
+            Arguments.of(Named.of("빈 문자열", ""), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
+            Arguments.of(Named.of("공백이 포함된 URL", "https ://google.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
+            Arguments.of(Named.of("http가 누락된 URL", "://google.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
+            Arguments.of(Named.of("잘못된 프로토콜", "htp://example.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
+            Arguments.of(Named.of("차단된 URL", "https://www.example.com"), ValidationException.class, ErrorCode.BLOCKED_URL.getMessage())
+            );
     }
 
     @Test
