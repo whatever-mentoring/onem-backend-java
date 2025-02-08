@@ -33,7 +33,7 @@ class UrlShortenServiceTest {
     }
     @Test
     void 잘못된_url일_경우_예외가_발생한다() {
-        String originUrl = "htp://www.google.com";
+        String originUrl = "ftp://www.google.com";
 
         assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
             .isInstanceOf(ValidationException.class)
