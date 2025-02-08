@@ -5,11 +5,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
-import community.whatever.onembackendjava.common.exception.custom.UnAuthorizedException;
+import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
 import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
-import community.whatever.onembackendjava.urlshorten.service.UrlShortenService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +66,7 @@ class UrlShortenServiceTest {
         urlShortenRepository.save(expiredUrl);
 
         assertThatThrownBy(() -> urlShortenService.getOriginUrlByShortenUrlKey(expiredKey))
-            .isInstanceOf(UnAuthorizedException.class)
+            .isInstanceOf(ExpiredUrlException.class)
             .hasMessage(ErrorCode.EXPIRED_SHORTEN_URL.getMessage());
     }
 

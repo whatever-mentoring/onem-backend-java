@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
 
-    // Authorization
-    EXPIRED_SHORTEN_URL(HttpStatus.UNAUTHORIZED, "만료된 단축 URL입니다."),
+    // Expired
+    EXPIRED_SHORTEN_URL(HttpStatus.GONE, "만료된 단축 URL입니다."),
 
     // Validation
     INVALID_URL_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 URL 형식입니다."),

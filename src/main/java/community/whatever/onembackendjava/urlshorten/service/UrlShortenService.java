@@ -2,7 +2,7 @@ package community.whatever.onembackendjava.urlshorten.service;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
-import community.whatever.onembackendjava.common.exception.custom.UnAuthorizedException;
+import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.urlshorten.component.UrlShortenValidator;
 import community.whatever.onembackendjava.urlshorten.component.UrlShortener;
 import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
@@ -37,7 +37,7 @@ public class UrlShortenService {
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_SHORTEN_URL));
 
         if (urlShorten.getExpiredAt().isBefore(LocalDateTime.now())) {
-            throw new UnAuthorizedException(ErrorCode.EXPIRED_SHORTEN_URL);
+            throw new ExpiredUrlException(ErrorCode.EXPIRED_SHORTEN_URL);
         }
 
         return urlShorten.getOriginUrl();
