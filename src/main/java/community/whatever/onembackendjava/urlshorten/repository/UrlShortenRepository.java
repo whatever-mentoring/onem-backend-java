@@ -20,7 +20,4 @@ public class UrlShortenRepository {
         return Optional.ofNullable(shortenUrls.get(shortenUrlKey));
     }
 
-    public void deleteByExpiredAtBefore(LocalDateTime now) {
-        shortenUrls.values().removeIf(urlShorten -> urlShorten.getExpiredAt().isBefore(now));
-    }
 }
