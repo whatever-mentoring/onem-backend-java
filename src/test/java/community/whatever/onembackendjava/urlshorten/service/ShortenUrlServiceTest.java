@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,21 +39,25 @@ class ShortenUrlServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("invalidUrlProvider")
-    void 잘못된_입력값으로_요청하면_예외가_발생한다(String originUrl, Class<? extends RuntimeException> expectedException, String expectedMessage) {
+    @CsvSource({
+        "''",
+        "'https ://google.com'",
+        "'://google.com'",
+        "'htp://example.com'"
+    })
+    void 잘못된_입력값으로_요청하면_예외가_발생한다(String originUrl) {
         assertThatThrownBy(() -> shortenUrlService.createShortenUrl(originUrl))
-            .isInstanceOf(expectedException)
-            .hasMessage(expectedMessage);
+            .isInstanceOf(ValidationException.class)
+            .hasMessage(ErrorCode.INVALID_URL_FORMAT.getMessage());
     }
 
-    private static Stream<Arguments> invalidUrlProvider() {
-        return Stream.of(
-            Arguments.of(Named.of("빈 문자열", ""), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
-            Arguments.of(Named.of("공백이 포함된 URL", "https ://google.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
-            Arguments.of(Named.of("http가 누락된 URL", "://google.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
-            Arguments.of(Named.of("잘못된 프로토콜", "htp://example.com"), ValidationException.class, ErrorCode.INVALID_URL_FORMAT.getMessage()),
-            Arguments.of(Named.of("차단된 URL", "https://www.example.com"), ValidationException.class, ErrorCode.BLOCKED_URL.getMessage())
-            );
+    @Test
+    void 사용_불가능한_url일_경우_예외가_발생한다() {
+        String originUrl = "https://www.example.com";
+
+        assertThatThrownBy(() -> shortenUrlService.createShortenUrl(originUrl))
+            .isInstanceOf(ValidationException.class)
+            .hasMessage(ErrorCode.BLOCKED_URL.getMessage());
     }
 
     @Test
@@ -68,7 +73,7 @@ class ShortenUrlServiceTest {
     @Test
     void 만료된_shorten_url을_조회하면_예외가_발생한다() {
         String expiredKey = "expiredKey";
-        ShortenUrl expiredUrl = new ShortenUrl("https://google.com", expiredKey, LocalDateTime.now().minusMinutes(1));
+        ShortenUrl expiredUrl = new ShortenUrl( "https://google.com", expiredKey, LocalDateTime.now().minusMinutes(1));
         shortenUrlRepository.save(expiredUrl);
 
         assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(expiredKey))
