@@ -1,5 +1,6 @@
 package community.whatever.onembackendjava.urlshorten.properties;
 
+import java.time.Duration;
 import java.util.Set;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -8,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "shorten-url")
 public class ShortenUrlProperties {
 
-    private int expirationTime;
+    private Duration duration;
     private Set<String> blacklist;
 
-    public int getExpirationTime() {
-        return expirationTime;
+    public Duration getDuration() {
+        return duration;
     }
 
-    public void setExpirationTime(int expirationTime) {
-        this.expirationTime = expirationTime;
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
     public Set<String> getBlacklist() {

@@ -29,7 +29,7 @@ public class ShortenUrlService {
         shortenUrlValidator.validateUrl(originUrl);
         String shortenUrlKey = ShortenUrlKeyGenerator.shorten();
 
-        LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(shortenUrlProperties.getExpirationTime());
+        LocalDateTime expirationTime = LocalDateTime.now().plus(shortenUrlProperties.getDuration());
         ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, expirationTime);
 
         shortenUrlRepository.save(shortenUrl);
