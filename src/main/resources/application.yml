@@ -4,6 +4,8 @@ management:
       exposure:
         include: refresh, health
 
-blacklist:
-  domains:
+urlshorten:
+  expiration-time: 1
+
+  blacklist:
     - www.example.com
