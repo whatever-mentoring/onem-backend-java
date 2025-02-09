@@ -2,7 +2,7 @@ package community.whatever.onembackendjava.urlshorten.component;
 
 import java.util.Random;
 
-public class UrlShortener {
+public class ShortenUrlKeyGenerator {
 
     private static final Random RANDOM = new Random();
 

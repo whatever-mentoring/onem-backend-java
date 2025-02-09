@@ -1,6 +1,6 @@
 package community.whatever.onembackendjava.urlshorten.dto;
 
-public record GetOriginUrlResponse (
+public record OriginUrlResponse(
     String originUrl
 ){
 }

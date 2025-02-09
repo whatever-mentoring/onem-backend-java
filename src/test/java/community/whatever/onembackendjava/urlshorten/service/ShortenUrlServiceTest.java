@@ -7,8 +7,8 @@ import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
-import community.whatever.onembackendjava.urlshorten.domain.UrlShorten;
-import community.whatever.onembackendjava.urlshorten.repository.UrlShortenRepository;
+import community.whatever.onembackendjava.urlshorten.domain.ShortenUrl;
+import community.whatever.onembackendjava.urlshorten.repository.ShortenUrlRepository;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Named;
@@ -20,19 +20,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UrlShortenServiceTest {
+class ShortenUrlServiceTest {
 
     @Autowired
-    private UrlShortenService urlShortenService;
+    private ShortenUrlService shortenUrlService;
 
     @Autowired
-    private UrlShortenRepository urlShortenRepository;
+    private ShortenUrlRepository shortenUrlRepository;
 
     @Test
     void shorten_url을_생성하고_조회한다() {
         String expectedOriginUrl = "https://www.google.com";
-        String key = urlShortenService.createShortenUrl(expectedOriginUrl);
-        String originUrl = urlShortenService.getOriginUrlByShortenUrlKey(key);
+        String key = shortenUrlService.createShortenUrl(expectedOriginUrl);
+        String originUrl = shortenUrlService.getOriginUrlByShortenUrlKey(key);
 
         assertThat(originUrl).isEqualTo(expectedOriginUrl);
     }
@@ -40,7 +40,7 @@ class UrlShortenServiceTest {
     @ParameterizedTest
     @MethodSource("invalidUrlProvider")
     void 잘못된_입력값으로_요청하면_예외가_발생한다(String originUrl, Class<? extends RuntimeException> expectedException, String expectedMessage) {
-        assertThatThrownBy(() -> urlShortenService.createShortenUrl(originUrl))
+        assertThatThrownBy(() -> shortenUrlService.createShortenUrl(originUrl))
             .isInstanceOf(expectedException)
             .hasMessage(expectedMessage);
     }
@@ -59,7 +59,7 @@ class UrlShortenServiceTest {
     void 존재하지_않는_shorten_url_key로_조회하면_예외가_발생한다() {
         String nonExistingKey = "nonExistingKey";
 
-        assertThatThrownBy(() -> urlShortenService.getOriginUrlByShortenUrlKey(nonExistingKey))
+        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(nonExistingKey))
             .isInstanceOf(NotFoundException.class)
             .hasMessage(ErrorCode.NOT_FOUND_SHORTEN_URL.getMessage());
 
@@ -68,10 +68,10 @@ class UrlShortenServiceTest {
     @Test
     void 만료된_shorten_url을_조회하면_예외가_발생한다() {
         String expiredKey = "expiredKey";
-        UrlShorten expiredUrl = new UrlShorten("https://google.com", expiredKey, LocalDateTime.now().minusMinutes(1));
-        urlShortenRepository.save(expiredUrl);
+        ShortenUrl expiredUrl = new ShortenUrl("https://google.com", expiredKey, LocalDateTime.now().minusMinutes(1));
+        shortenUrlRepository.save(expiredUrl);
 
-        assertThatThrownBy(() -> urlShortenService.getOriginUrlByShortenUrlKey(expiredKey))
+        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(expiredKey))
             .isInstanceOf(ExpiredUrlException.class)
             .hasMessage(ErrorCode.EXPIRED_SHORTEN_URL.getMessage());
     }

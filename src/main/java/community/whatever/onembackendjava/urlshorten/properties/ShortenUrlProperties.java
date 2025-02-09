@@ -4,11 +4,9 @@ import java.util.Set;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
 @ConfigurationProperties(prefix = "urlshorten")
-public class UrlShortenProperties {
+public class ShortenUrlProperties {
 
     private int expirationTime;
     private Set<String> blacklist;
