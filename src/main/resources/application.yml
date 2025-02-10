@@ -1,11 +1,21 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    active: ${profile}
+    include: actuator
 
-urlshorten:
-  expiration-time: 1
+shorten-url:
+  expired-duration: 60s
 
   blacklist:
     - www.example.com
+
+---
+spring.config.activate.on-profile: dev
+
+---
+spring.config.activate.on-profile: stg
+
+---
+spring.config.activate.on-profile: prd
