@@ -16,7 +16,7 @@ public class ShortenUrlValidator {
         this.shortenUrlProperties = shortenUrlProperties;
     }
 
-    public void validateUrl(String url) {
+    public void validate(String url) {
         String domain = extractDomain(url);
 
         if (shortenUrlProperties.getBlacklist().contains(domain)) {
