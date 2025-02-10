@@ -6,7 +6,7 @@ spring:
     include: actuator
 
 shorten-url:
-  expired-duration: 1m
+  expired-duration: 60s
 
   blacklist:
     - www.example.com

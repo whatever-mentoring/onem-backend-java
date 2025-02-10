@@ -31,7 +31,7 @@ public class ShortenUrlService {
 
         LocalDateTime expirationTime = LocalDateTime.now().plus(shortenUrlProperties.getExpiredDuration());
         ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, expirationTime);
-
+        System.out.println(expirationTime);
         shortenUrlRepository.save(shortenUrl);
         return shortenUrlKey;
     }
