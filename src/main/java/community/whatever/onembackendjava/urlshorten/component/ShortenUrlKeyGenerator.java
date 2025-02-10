@@ -6,7 +6,7 @@ public class ShortenUrlKeyGenerator {
 
     private static final Random RANDOM = new Random();
 
-    public static String shorten() {
+    public static String generate() {
         return String.valueOf(RANDOM.nextInt(10000));
     }
 

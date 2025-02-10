@@ -6,25 +6,16 @@ spring:
     include: actuator
 
 shorten-url:
-  duration: 1m
+  expired-duration: 1m
 
   blacklist:
     - www.example.com
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: dev
+spring.config.activate.on-profile: dev
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: stg
+spring.config.activate.on-profile: stg
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: prd
+spring.config.activate.on-profile: prd

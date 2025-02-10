@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "shorten-url")
 public class ShortenUrlProperties {
 
-    private Duration duration;
+    private Duration expiredDuration;
     private Set<String> blacklist;
 
-    public Duration getDuration() {
-        return duration;
+    public Duration getExpiredDuration() {
+        return expiredDuration;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public void setExpiredDuration(Duration expiredDuration) {
+        this.expiredDuration = expiredDuration;
     }
 
     public Set<String> getBlacklist() {
