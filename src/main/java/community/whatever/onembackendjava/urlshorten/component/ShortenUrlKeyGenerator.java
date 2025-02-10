@@ -16,7 +16,7 @@ public class ShortenUrlKeyGenerator {
 
     public String generate(long number) {
         String profile = environment.getProperty("spring.profiles.active");
-        String generatedKey = encode(number);
+        String generatedKey = Base64.getUrlEncoder().withoutPadding().encodeToString(encode(number).getBytes());
         return profile + "-" + generatedKey;
     }
 
