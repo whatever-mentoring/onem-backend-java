@@ -1,1 +1,10 @@
-spring.application.name=onem-backend-java
+spring:
+  application:
+    name: onem-backend-java
+
+shortener:
+  endpoint:
+    create: /short-urls
+    search: /short-urls/{shortKey}
+  blocked-domains:
+    - naver.com
