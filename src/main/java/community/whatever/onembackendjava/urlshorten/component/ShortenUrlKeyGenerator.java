@@ -1,5 +1,6 @@
 package community.whatever.onembackendjava.urlshorten.component;
 
+import java.util.Base64;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
