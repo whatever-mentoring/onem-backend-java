@@ -9,7 +9,8 @@ import java.util.List;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "shortener")
-public class UrlBlockDomainProperties {
+public class UrlShortenProperties {
     private List<String> blockedDomains;
+    private long expiredTime ;
 }
 

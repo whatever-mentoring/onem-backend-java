@@ -12,4 +12,11 @@ public class GlobalExceptionHandler {
     public Object IllegalArgumentException(IllegalArgumentException ex) {
         return ex.getMessage();
     }
+
+    @ExceptionHandler({ExpiredException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Object ExpiredException(ExpiredException ex) {
+        return ex.getMessage();
+    }
+
 }

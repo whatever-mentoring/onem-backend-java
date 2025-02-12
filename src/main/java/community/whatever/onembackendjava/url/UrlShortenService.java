@@ -2,6 +2,8 @@ package community.whatever.onembackendjava.url;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UrlShortenService {
 
@@ -23,6 +25,8 @@ public class UrlShortenService {
 
 
     public String createKey(String url) {
-        return urlShortenRepository.createKey(url);
+
+        String urlKey = urlShortenRepository.createKey(url);
+        return urlKey ;
     }
 }
