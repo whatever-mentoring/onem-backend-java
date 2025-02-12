@@ -18,15 +18,18 @@ spring:
       on-profile: dev
 
   datasource:
-    url: jdbc:mysql://localhost:3306/shortenurl?useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/shortenurl
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
 ---
 spring.config.activate.on-profile: stg
