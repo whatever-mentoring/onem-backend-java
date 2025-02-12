@@ -8,6 +8,7 @@ import community.whatever.onembackendjava.common.exception.custom.NotFoundExcept
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
 import community.whatever.onembackendjava.urlshorten.domain.ShortenUrl;
+import community.whatever.onembackendjava.urlshorten.repository.ShortenUrlRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
