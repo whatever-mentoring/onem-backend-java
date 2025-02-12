@@ -25,15 +25,13 @@ public class UrlShortenRepository {
         return shortenUrlMap.containsKey(key) ;
     }
     public String createKey(String url){
-
-        if(isblockedDomains(url)){
+        if (isblockedDomains(url)) {
             throw new IllegalArgumentException("blocked Domain");
-        }else{
-            String uniqueKey = generateKey();
-            shortenUrlMap.put(uniqueKey, url) ;
-            return uniqueKey ;
         }
 
+        final String uniqueKey = generateKey();
+        shortenUrlMap.put(uniqueKey, url);
+        return uniqueKey;
     }
 
     public String getUrl(String key){
