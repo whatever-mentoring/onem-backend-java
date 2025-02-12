@@ -12,7 +12,21 @@ shorten-url:
     - www.example.com
 
 ---
-spring.config.activate.on-profile: dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/shortenurl?useSSL=false&serverTimezone=Asia/Seoul
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 
 ---
 spring.config.activate.on-profile: stg
