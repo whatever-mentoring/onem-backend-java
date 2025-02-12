@@ -2,12 +2,11 @@ spring:
   config:
     import: optional:file:.env[.properties]
   profiles:
-    active: ${profile}
+    active: ${PROFILE}
     include: actuator
 
 shorten-url:
   expired-duration: 60s
-
   blacklist:
     - www.example.com
 
@@ -18,14 +17,14 @@ spring:
       on-profile: dev
 
   datasource:
-    url: jdbc:mysql://localhost:3306/shortenurl
-    username: root
-    password: root
+    url: ${DATA_SOURCE_URL}
+    username: ${DATA_SOURCE_USERNAME}
+    password: ${DATA_SOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
@@ -33,6 +32,7 @@ spring:
 
 ---
 spring.config.activate.on-profile: stg
+
 
 ---
 spring.config.activate.on-profile: prd
