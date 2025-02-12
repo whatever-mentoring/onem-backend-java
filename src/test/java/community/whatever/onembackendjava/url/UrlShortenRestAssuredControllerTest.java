@@ -31,7 +31,7 @@ public class UrlShortenRestAssuredControllerTest {
     @DisplayName("키생성테스트")
     void shortenUrlCreateTest(){
         Map<String, Object> params = new HashMap<>();
-        params.put("url", "https://docs.oracle.com");
+        params.put("originUrl", "https://docs.oracle.com");
 
         ExtractableResponse<Response> createResponse =
                 RestAssured
@@ -39,7 +39,7 @@ public class UrlShortenRestAssuredControllerTest {
                         .body(params)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .when()
-                        .post("/shortenUrl/create")
+                        .post("/shorten-url/create")
                         .then().log().all()
                         .extract();
 
@@ -53,7 +53,7 @@ public class UrlShortenRestAssuredControllerTest {
     void getUrlByKeyTest(){
         Map<String, Object> params = new HashMap<>();
         String url = "https://docs.oracle.com";
-        params.put("url", url );
+        params.put("originUrl", url );
 
         ExtractableResponse<Response> createResponse1 =
                 RestAssured
@@ -61,7 +61,7 @@ public class UrlShortenRestAssuredControllerTest {
                         .body(params)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .when()
-                        .post("/shortenUrl/create")
+                        .post("/shorten-url")
                         .then().log().all()
                         .extract();
 
@@ -72,7 +72,7 @@ public class UrlShortenRestAssuredControllerTest {
                 RestAssured
                         .given().log().all()
                         .when()
-                        .get("/shortenUrl/" + key)
+                        .get("/shorten-url/" + key)
                         .then().log().all()
                         .extract();
         assertThat(createResponse2.statusCode()).isEqualTo(200);
@@ -87,10 +87,32 @@ public class UrlShortenRestAssuredControllerTest {
                 RestAssured
                         .given().log().all()
                         .when()
-                        .get("/shortenUrl/" + 1234)
+                        .get("/shorten-url/" + 1234)
                         .then().log().all()
                         .extract();
         assertThat(createResponse2.statusCode()).isEqualTo(400);
+
+    }
+
+
+    @Test
+    @DisplayName("차단도메인테스트")
+    void shortenBlocekdDomainsTest(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("originUrl", "https://papago.naver.com");
+
+        ExtractableResponse<Response> createResponse =
+                RestAssured
+                        .given().log().all()
+                        .body(params)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .when()
+                        .post("/shorten-url")
+                        .then().log().all()
+                        .extract();
+
+        assertThat(createResponse.statusCode()).isEqualTo(400);
+        assertThat(createResponse.body().asString()).isNotEmpty() ;
 
     }
 

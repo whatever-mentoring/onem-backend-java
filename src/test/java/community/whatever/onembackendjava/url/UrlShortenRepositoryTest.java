@@ -12,7 +12,7 @@ public class UrlShortenRepositoryTest {
 
     @BeforeAll
     public static void setUp(){
-        urlShortenRepository = new UrlShortenRepository() ;
+        urlShortenRepository = new UrlShortenRepository(new UrlBlockDomainProperties()) ;
         // 테스트용
         urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
         urlShortenRepository.createKey("https://www.daum.net");
