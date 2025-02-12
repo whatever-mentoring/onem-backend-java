@@ -11,11 +11,9 @@ shorten-url:
     - www.example.com
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: dev
+spring.config.activate.on-profile: dev
 
+spring:
   datasource:
     url: ${DATA_SOURCE_URL}
     username: ${DATA_SOURCE_USERNAME}
