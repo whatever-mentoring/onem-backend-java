@@ -45,6 +45,11 @@ services:
       - mysql
     networks:
       - shortenurl-network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "1GB"
 
   mysql:
     image: mysql:8.0.41
@@ -56,11 +61,7 @@ services:
       - "3306:3306"
     networks:
       - shortenurl-network
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "1GB"
+
 
   influxdb:
     image: influxdb:1.8
