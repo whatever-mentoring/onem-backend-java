@@ -25,8 +25,6 @@ public class UrlShortenService {
 
 
     public String createKey(String url) {
-
-        String urlKey = urlShortenRepository.createKey(url);
-        return urlKey ;
+        return  urlShortenRepository.createKey(url);
     }
 }
