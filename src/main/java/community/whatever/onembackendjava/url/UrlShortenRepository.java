@@ -28,14 +28,14 @@ public class UrlShortenRepository {
     }
     public String createKey(String url){
 
-        if(isblockedDomains(url)){
+        if (isblockedDomains(url)) {
             throw new IllegalArgumentException("blocked Domain");
-        }else{
+        }
             String uniqueKey = generateKey();
             ShortenUrl shortenUrl = new ShortenUrl(uniqueKey,url, LocalDateTime.now())  ;
             shortenUrlMap.put(uniqueKey, shortenUrl) ;
             return uniqueKey ;
-        }
+
 
     }
 
