@@ -17,10 +17,10 @@ public class UrlShortenRepository {
 
     private static final Random random = new Random() ;
 
-    private UrlShortenProperties urlBlockDomainProperties ;
+    private UrlShortenProperties urlShortenProperties ;
 
-    public UrlShortenRepository(UrlShortenProperties urlBlockDomainProperties){
-        this.urlBlockDomainProperties = urlBlockDomainProperties ;
+    public UrlShortenRepository(UrlShortenProperties urlShortenProperties){
+        this.urlShortenProperties = urlShortenProperties ;
     }
 
     boolean existKey(String key){
@@ -40,14 +40,16 @@ public class UrlShortenRepository {
     }
 
     public String getUrl(String key){
+
         // 현재 시간
         LocalDateTime now = LocalDateTime.now();
+
         Duration duration = Duration.between((shortenUrlMap.get(key)).regDate(), now);
 
         // 제한 시간보다 , duration이 크면 에러
-        if(urlBlockDomainProperties.getExpiredTime() < duration.toMinutes() ){
+        if(urlShortenProperties.getExpiredTime() <= duration.toMinutes() ){
             throw new ExpiredException("currentKey expired");
-        } ;
+        }
         return (shortenUrlMap.get(key)).urlKey() ;
     }
 
@@ -62,7 +64,7 @@ public class UrlShortenRepository {
     }
 
     public boolean isblockedDomains(String url){
-        List<String> blockedDomains = urlBlockDomainProperties.getBlockedDomains() ;
+        List<String> blockedDomains = urlShortenProperties.getBlockedDomains() ;
         return blockedDomains.contains(url) ;
     }
 
