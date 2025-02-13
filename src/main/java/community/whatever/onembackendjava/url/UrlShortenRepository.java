@@ -2,8 +2,8 @@ package community.whatever.onembackendjava.url;
 
 import community.whatever.onembackendjava.exception.ExpiredException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -31,6 +31,7 @@ public class UrlShortenRepository {
         if (isblockedDomains(url)) {
             throw new IllegalArgumentException("blocked Domain");
         }
+
             String uniqueKey = generateKey();
             ShortenUrl shortenUrl = new ShortenUrl(uniqueKey,url, LocalDateTime.now())  ;
             shortenUrlMap.put(uniqueKey, shortenUrl) ;
