@@ -10,13 +10,9 @@ import community.whatever.onembackendjava.common.exception.custom.ValidationExce
 import community.whatever.onembackendjava.urlshorten.domain.ShortenUrl;
 import community.whatever.onembackendjava.urlshorten.repository.ShortenUrlRepository;
 import java.time.LocalDateTime;
-import java.util.stream.Stream;
-import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

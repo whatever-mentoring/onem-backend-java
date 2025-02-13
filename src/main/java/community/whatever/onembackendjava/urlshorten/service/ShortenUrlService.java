@@ -33,7 +33,7 @@ public class ShortenUrlService {
         shortenUrlValidator.validate(originUrl);
 
         ShortenUrl shortenUrl = saveShortenUrl(originUrl);
-        return shortenUrl.shortenUrlKey();
+        return shortenUrl.getShortenUrlKey();
     }
 
 
@@ -42,7 +42,7 @@ public class ShortenUrlService {
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_SHORTEN_URL));
 
         validateNotExpired(shortenUrl);
-        return shortenUrl.originUrl();
+        return shortenUrl.getOriginUrl();
     }
 
     private ShortenUrl saveShortenUrl(String originUrl) {
@@ -58,7 +58,7 @@ public class ShortenUrlService {
     }
 
     private void validateNotExpired(ShortenUrl shortenUrl) {
-        if (shortenUrl.expiredAt().isBefore(LocalDateTime.now())) {
+        if (shortenUrl.getExpiredAt().isBefore(LocalDateTime.now())) {
             throw new ExpiredUrlException(ErrorCode.EXPIRED_SHORTEN_URL);
         }
     }

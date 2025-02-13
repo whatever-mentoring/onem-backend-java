@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -10,7 +11,7 @@ services:
     ports:
       - "9090:9090"
     networks:
-      - monitoring-network
+      - shortenurl-network
 
   grafana:
     image: grafana/grafana:latest
@@ -18,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - monitoring-network
+      - shortenurl-network
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -26,8 +27,31 @@ services:
     ports:
       - "9100:9100"
     networks:
-      - monitoring-network
+      - shortenurl-network
+
+  shortenurl:
+    build: .
+    container_name: shortenurl
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    networks:
+      - shortenurl-network
+
+  mysql:
+    image: mysql:8.0.41
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shortenurl
+    ports:
+      - "3306:3306"
+    networks:
+      - shortenurl-network
 
 networks:
-  monitoring-network:
+  shortenurl-network:
     driver: bridge

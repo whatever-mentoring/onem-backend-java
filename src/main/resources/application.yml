@@ -2,20 +2,35 @@ spring:
   config:
     import: optional:file:.env[.properties]
   profiles:
-    active: ${profile}
+    active: ${PROFILE}
     include: actuator
 
 shorten-url:
   expired-duration: 60s
-
   blacklist:
     - www.example.com
 
 ---
 spring.config.activate.on-profile: dev
 
+spring:
+  datasource:
+    url: ${DATA_SOURCE_URL}
+    username: ${DATA_SOURCE_USERNAME}
+    password: ${DATA_SOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+
 ---
 spring.config.activate.on-profile: stg
+
 
 ---
 spring.config.activate.on-profile: prd
