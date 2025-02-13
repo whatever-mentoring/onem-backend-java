@@ -12,10 +12,10 @@ public class UrlShortenRepositoryTest {
 
     @BeforeAll
     public static void setUp(){
-        urlShortenRepository = new UrlShortenRepository(new UrlBlockDomainProperties()) ;
+        urlShortenRepository = new UrlShortenRepository(new UrlShortenProperties()) ;
         // 테스트용
-        urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
-        urlShortenRepository.createKey("https://www.daum.net");
+      //  urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
+      //  urlShortenRepository.createKey("https://www.daum.net");
     }
 
 

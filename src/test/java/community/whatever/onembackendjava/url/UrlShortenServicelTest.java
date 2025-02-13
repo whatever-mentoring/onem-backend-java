@@ -10,11 +10,11 @@ class UrlShortenServicelTest {
 
     private static UrlShortenRepository urlShortenRepository ;
     private static UrlShortenService urlShortenService ;
-    private UrlBlockDomainProperties urlBlockDomainProperties ;
+    private UrlShortenProperties urlShortenProperties ;
     private static String tmpString ;
     @BeforeAll
     public static void setUp(){
-        urlShortenService = new UrlShortenService(new UrlShortenRepository(new UrlBlockDomainProperties()) ) ;
+        urlShortenService = new UrlShortenService(new UrlShortenRepository(new UrlShortenProperties()) ) ;
     }
 
     @Test
