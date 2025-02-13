@@ -1,8 +1,8 @@
-package community.whatever.onembackendjava.urlshorten.component;
+package community.whatever.onembackendjava.shortenurl.component;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
-import community.whatever.onembackendjava.urlshorten.properties.ShortenUrlProperties;
+import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.springframework.stereotype.Component;

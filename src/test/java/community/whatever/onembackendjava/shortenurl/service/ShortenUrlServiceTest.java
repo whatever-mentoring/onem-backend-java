@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.urlshorten.service;
+package community.whatever.onembackendjava.shortenurl.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,8 +7,8 @@ import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
-import community.whatever.onembackendjava.urlshorten.domain.ShortenUrl;
-import community.whatever.onembackendjava.urlshorten.repository.ShortenUrlRepository;
+import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
+import community.whatever.onembackendjava.shortenurl.repository.ShortenUrlRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

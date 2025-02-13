@@ -1,9 +1,9 @@
-package community.whatever.onembackendjava.urlshorten.controller;
+package community.whatever.onembackendjava.shortenurl.controller;
 
-import community.whatever.onembackendjava.urlshorten.dto.OriginUrlResponse;
-import community.whatever.onembackendjava.urlshorten.dto.ShortenUrlRequest;
-import community.whatever.onembackendjava.urlshorten.dto.ShortenUrlResponse;
-import community.whatever.onembackendjava.urlshorten.service.ShortenUrlService;
+import community.whatever.onembackendjava.shortenurl.dto.OriginUrlResponse;
+import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlRequest;
+import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
+import community.whatever.onembackendjava.shortenurl.service.ShortenUrlService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
