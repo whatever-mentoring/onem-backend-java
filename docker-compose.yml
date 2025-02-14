@@ -3,19 +3,15 @@ version: '3.8'
 services:
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - "9090:9090"
     networks:
       - shortenurl-network
+    deploy:
+      replicas: 1
 
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
     ports:
       - "3000:3000"
     networks:
@@ -25,18 +21,20 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
+    deploy:
+      replicas: 1
 
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: node-exporter
     ports:
       - "9100:9100"
     networks:
       - shortenurl-network
+    deploy:
+      replicas: 1
 
   shortenurl:
-    build: .
-    container_name: shortenurl
+    image: shortenurl-image
     ports:
       - "8080:8080"
     env_file:
@@ -46,6 +44,7 @@ services:
     networks:
       - shortenurl-network
     deploy:
+      replicas: 1
       resources:
         limits:
           cpus: "1.0"
@@ -53,7 +52,6 @@ services:
 
   mysql:
     image: mysql:8.0.41
-    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: shortenurl
@@ -61,11 +59,11 @@ services:
       - "3306:3306"
     networks:
       - shortenurl-network
-
+    deploy:
+      replicas: 1
 
   influxdb:
     image: influxdb:1.8
-    container_name: influxdb
     ports:
       - "8086:8086"
     environment:
@@ -77,10 +75,12 @@ services:
       - shortenurl-network
     volumes:
       - influxdb_data:/var/lib/influxdb
+    deploy:
+      replicas: 1
 
 networks:
   shortenurl-network:
-    driver: bridge
+    driver: overlay
 
 volumes:
   influxdb_data:
