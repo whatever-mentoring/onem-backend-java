@@ -7,8 +7,7 @@ export const options = {
 };
 
 export default function () {
-  const url = 'http://localhost:8080/shorten-url/dev-iBbJapCOAX0G';
+  const url = 'http://localhost:8080/shorten-url/dev-abcdefg';
 
-  // GET 요청 보내기
   http.get(url);
 }

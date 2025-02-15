@@ -3,6 +3,11 @@ version: '3.8'
 services:
   prometheus:
     image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - "9090:9090"
     networks:
@@ -34,7 +39,7 @@ services:
       replicas: 1
 
   shortenurl:
-    image: shortenurl-image
+    image: seeeeeeong/shortenurl-image
     ports:
       - "8080:8080"
     env_file:
@@ -50,6 +55,7 @@ services:
           cpus: "1.0"
           memory: "1GB"
 
+
   mysql:
     image: mysql:8.0.41
     environment:
@@ -59,6 +65,8 @@ services:
       - "3306:3306"
     networks:
       - shortenurl-network
+    volumes:
+      - ./sql-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       replicas: 1
 
