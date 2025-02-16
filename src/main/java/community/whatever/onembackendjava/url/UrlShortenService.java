@@ -1,5 +1,6 @@
 package community.whatever.onembackendjava.url;
 
+import community.whatever.onembackendjava.exception.ExpiredException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,18 @@ public class UrlShortenService {
 
 
     public String getUrlByKey(String key) {
-        if(urlShortenRepository.existKey(key)){
-            return  urlShortenRepository.getUrl(key) ;
-        }else{
+        if(!urlShortenRepository.existKey(key)){
             throw new IllegalArgumentException("Invalid key");
         }
+
+        ShortenUrl shortenUrl = urlShortenRepository.getShotenUrl(key) ;
+        if ( LocalDateTime.now().isAfter(shortenUrl.expirationTime())) {
+            throw new ExpiredException("currentKey expired");
+        }
+
+        return shortenUrl.originUrl() ;
+
+
     }
 
 

@@ -32,27 +32,23 @@ public class UrlShortenRepository {
             throw new IllegalArgumentException("blocked Domain");
         }
 
+            // 만료시간 세팅
+            LocalDateTime nowDateTime =LocalDateTime.now().plusMinutes(urlShortenProperties.getExpiredMinute()) ;
+
             String uniqueKey = generateKey();
-            ShortenUrl shortenUrl = new ShortenUrl(uniqueKey,url, LocalDateTime.now())  ;
+            ShortenUrl shortenUrl = new ShortenUrl(uniqueKey,url, nowDateTime)  ;
             shortenUrlMap.put(uniqueKey, shortenUrl) ;
             return uniqueKey ;
 
 
     }
 
-    public String getUrl(String key){
 
-        // 현재 시간
-        LocalDateTime now = LocalDateTime.now();
-
-        Duration duration = Duration.between((shortenUrlMap.get(key)).regDate(), now);
-
-        // 제한 시간보다 , duration이 크면 에러
-        if(urlShortenProperties.getExpiredTime() <= duration.toMinutes() ){
-            throw new ExpiredException("currentKey expired");
-        }
-        return (shortenUrlMap.get(key)).urlKey() ;
+    public ShortenUrl getShotenUrl(String key){
+        return shortenUrlMap.get(key) ;
     }
+
+
 
 
 /*    // test용
