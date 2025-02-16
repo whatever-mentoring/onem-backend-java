@@ -3,7 +3,7 @@ spring:
     name: onem-backend-java
 
 shortener :
-  expirationTime : 1
+  expiredMinute : 1
   blockedDomains :
     - "https://mvnrepository.com"
     - "https://papago.naver.com"
