@@ -2,77 +2,93 @@ package community.whatever.onembackendjava.shortenurl.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
-import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
-import community.whatever.onembackendjava.common.exception.custom.ValidationException;
+import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
+import community.whatever.onembackendjava.shortenurl.component.ShortenUrlKeyGenerator;
+import community.whatever.onembackendjava.shortenurl.component.ShortenUrlValidator;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
+import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import community.whatever.onembackendjava.shortenurl.repository.ShortenUrlRepository;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ShortenUrlServiceTest {
 
-    @Autowired
+    @InjectMocks
     private ShortenUrlService shortenUrlService;
 
-    @Autowired
+    @Mock
+    private ShortenUrlProperties shortenUrlProperties;
+
+    @Mock
+    private ShortenUrlValidator shortenUrlValidator;
+
+    @Mock
+    private ShortenUrlKeyGenerator shortenUrlKeyGenerator;
+
+    @Mock
     private ShortenUrlRepository shortenUrlRepository;
 
     @Test
-    void shorten_url을_생성하고_조회한다() {
-        String expectedOriginUrl = "https://www.google.com";
-        String key = shortenUrlService.createShortenUrl(expectedOriginUrl);
-        String originUrl = shortenUrlService.getOriginUrlByShortenUrlKey(key);
+    void shorten_url을_생성한다() {
+        String originUrl = "https://www.google.com";
+        String shortenUrlKey = "dev-abcdefg";
 
-        assertThat(originUrl).isEqualTo(expectedOriginUrl);
-    }
+        doNothing().when(shortenUrlValidator).validate(originUrl);
+        when(shortenUrlKeyGenerator.generate(anyLong())).thenReturn(shortenUrlKey);
 
-    @ParameterizedTest
-    @CsvSource({
-        "''",
-        "'https ://google.com'",
-        "'://google.com'",
-        "'htp://example.com'"
-    })
-    void 잘못된_입력값으로_요청하면_예외가_발생한다(String originUrl) {
-        assertThatThrownBy(() -> shortenUrlService.createShortenUrl(originUrl))
-            .isInstanceOf(ValidationException.class)
-            .hasMessage(ErrorCode.INVALID_URL_FORMAT.getMessage());
+        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, LocalDateTime.now().plus(shortenUrlProperties.getExpiredDuration()));
+        when(shortenUrlRepository.save(any(ShortenUrl.class))).thenReturn(shortenUrl);
+
+        String result = shortenUrlService.createShortenUrl(originUrl);
+
+        assertThat(result).isEqualTo(shortenUrlKey);
     }
 
     @Test
-    void 사용_불가능한_url일_경우_예외가_발생한다() {
-        String originUrl = "https://www.example.com";
+    void origin_url을_조회한다() {
+        String originUrl = "https://www.google.com";
+        String shortenUrlKey = "dev-abcdefg";
+        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, LocalDateTime.now().plusMinutes(1));
 
-        assertThatThrownBy(() -> shortenUrlService.createShortenUrl(originUrl))
-            .isInstanceOf(ValidationException.class)
-            .hasMessage(ErrorCode.BLOCKED_URL.getMessage());
+        when(shortenUrlRepository.findByShortenUrlKey(shortenUrlKey)).thenReturn(Optional.of(shortenUrl));
+
+        String result = shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey);
+
+        assertThat(result).isEqualTo(originUrl);
     }
 
     @Test
-    void 존재하지_않는_shorten_url_key로_조회하면_예외가_발생한다() {
-        String nonExistingKey = "nonExistingKey";
+    void origin_url이_존재하지_않을_경우_예외가_발생한다() {
+        String shortenUrlKey = "dev-";
 
-        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(nonExistingKey))
-            .isInstanceOf(NotFoundException.class)
+        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey))
+            .isInstanceOf(NotFoundException .class)
             .hasMessage(ErrorCode.NOT_FOUND_SHORTEN_URL.getMessage());
 
     }
 
     @Test
-    void 만료된_shorten_url을_조회하면_예외가_발생한다() {
-        String expiredKey = "expiredKey";
-        ShortenUrl expiredUrl = new ShortenUrl( "https://google.com", expiredKey, LocalDateTime.now().minusMinutes(1));
-        shortenUrlRepository.save(expiredUrl);
+    void origin_url이_만료된_경우_예외가_발생한다() {
+        String originUrl = "https://www.google.com";
+        String shortenUrlKey = "dev-expired";
+        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, LocalDateTime.now());
 
-        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(expiredKey))
+        when(shortenUrlRepository.findByShortenUrlKey(shortenUrlKey)).thenReturn(Optional.of(shortenUrl));
+
+        assertThatThrownBy(() -> shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey))
             .isInstanceOf(ExpiredUrlException.class)
             .hasMessage(ErrorCode.EXPIRED_SHORTEN_URL.getMessage());
     }
