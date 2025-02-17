@@ -12,10 +12,10 @@ public class UrlShortenRepositoryTest {
 
     @BeforeAll
     public static void setUp(){
-        urlShortenRepository = new UrlShortenRepository(new UrlBlockDomainProperties()) ;
+        urlShortenRepository = new UrlShortenRepository(new UrlShortenProperties()) ;
         // 테스트용
-        urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
-        urlShortenRepository.createKey("https://www.daum.net");
+      //  urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
+      //  urlShortenRepository.createKey("https://www.daum.net");
     }
 
 
@@ -24,15 +24,14 @@ public class UrlShortenRepositoryTest {
     @DisplayName("키 생성")
     public void createKey(){
         String createKey = urlShortenRepository.createKey("https://www.naver.com");
-        //System.out.println("createKey = " + createKey);
         assertThat(createKey).isNotEmpty() ;
     }
 
     @Test
     @DisplayName("url 검색")
     public void searchUrl(){
-        String result = urlShortenRepository.getUrl("1234");
-        assertThat(result).isNotEmpty() ;
+        ShortenUrl shortenUrl = urlShortenRepository.getShotenUrl("1234");
+        assertThat(shortenUrl.originUrl()).isNotEmpty() ;
     }
 
 }

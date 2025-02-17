@@ -116,4 +116,35 @@ public class UrlShortenRestAssuredControllerTest {
 
     }
 
+
+    @Test
+    @DisplayName("유지시간 테스트 X")
+    void shortenExpiredTest() throws InterruptedException {
+        Map<String, Object> params = new HashMap<>();
+        String url = "https://docs.oracle.com";
+        params.put("originUrl", url );
+
+        ExtractableResponse<Response> createResponse1 =
+                RestAssured
+                        .given().log().all()
+                        .body(params)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .when()
+                        .post("/shorten-url")
+                        .then().log().all()
+                        .extract();
+        String key = createResponse1.body().asString();
+
+        Thread.sleep(60000); // 1 분정 stop
+
+        ExtractableResponse<Response> createResponse2 =
+                RestAssured
+                        .given().log().all()
+                        .when()
+                        .get("/shorten-url/" + key)
+                        .then().log().all()
+                        .extract();
+        assertThat(createResponse2.statusCode()).isEqualTo(400);
+
+    }
 }
