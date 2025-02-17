@@ -19,7 +19,9 @@ public class MysqlTestContainer {
         new MySQLContainer<>("mysql:8.0.41")
             .withDatabaseName("mysql")
             .withUsername("root")
-            .withPassword("root");
+            .withPassword("root")
+            .withInitScript("init.sql");
+
 
     public static class ContainerConfig implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         @Override
