@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.urlshorten.component;
+package community.whatever.onembackendjava.shortenurl.component;
 
 import java.util.Base64;
 import org.springframework.core.env.Environment;

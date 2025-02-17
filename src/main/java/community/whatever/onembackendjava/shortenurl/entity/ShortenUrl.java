@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.urlshorten.domain;
+package community.whatever.onembackendjava.shortenurl.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

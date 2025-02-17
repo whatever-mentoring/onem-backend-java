@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.urlshorten.dto;
+package community.whatever.onembackendjava.shortenurl.dto;
 
 public record ShortenUrlRequest(
     String originUrl

@@ -1,6 +1,6 @@
-package community.whatever.onembackendjava.urlshorten.repository;
+package community.whatever.onembackendjava.shortenurl.repository;
 
-import community.whatever.onembackendjava.urlshorten.domain.ShortenUrl;
+import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
