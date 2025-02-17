@@ -12,19 +12,10 @@ public class UrlShortenRepositoryTest {
 
     @BeforeAll
     public static void setUp(){
-        urlShortenRepository = new UrlShortenRepository(new UrlShortenProperties()) ;
+        urlShortenRepository = new UrlShortenRepository() ;
         // 테스트용
       //  urlShortenRepository.testInsertValue("1234" , "https://docs.oracle.com");
       //  urlShortenRepository.createKey("https://www.daum.net");
-    }
-
-
-
-    @Test
-    @DisplayName("키 생성")
-    public void createKey(){
-        String createKey = urlShortenRepository.createKey("https://www.naver.com");
-        assertThat(createKey).isNotEmpty() ;
     }
 
     @Test
