@@ -1,19 +1,20 @@
 package community.whatever.onembackendjava.shortenurl.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
-public record ShortenUrlResponse (
+public record ShortenUrlResponse(
     String originUrl,
     String shortenUrlKey,
-    String expiredAt
-
-){
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm:ss")
+    LocalDateTime expiredAt
+) {
     public static ShortenUrlResponse from(ShortenUrl shortenUrl) {
         return new ShortenUrlResponse(
             shortenUrl.getOriginUrl(),
             shortenUrl.getShortenUrlKey(),
-            shortenUrl.getExpiredAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"))
+            shortenUrl.getExpiredAt()
         );
     }
 }
