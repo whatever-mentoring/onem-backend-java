@@ -17,7 +17,7 @@ public class ShortenUrlValidator {
     public void validate(String url) {
         String domain = UrlParser.extractDomain(url);
 
-        if (shortenUrlProperties.getBlacklist().contains(domain)) {
+        if (shortenUrlProperties.getBlockedDomain().contains(domain)) {
             throw new ValidationException(ErrorCode.BLOCKED_URL);
         }
     }

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ShortenUrlProperties {
 
     private Duration expiredDuration;
-    private Set<String> blacklist;
+    private Set<String> blockedDomain;
 
     public Duration getExpiredDuration() {
         return expiredDuration;
@@ -20,12 +20,12 @@ public class ShortenUrlProperties {
         this.expiredDuration = expiredDuration;
     }
 
-    public Set<String> getBlacklist() {
-        return blacklist;
+    public Set<String> getBlockedDomain() {
+        return blockedDomain;
     }
 
-    public void setBlacklist(Set<String> blacklist) {
-        this.blacklist = blacklist;
+    public void setBlockedDomain(Set<String> blockedDomain) {
+        this.blockedDomain = blockedDomain;
     }
 
 }

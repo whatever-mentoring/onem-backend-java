@@ -42,7 +42,7 @@ class ShortenUrlValidatorTest {
         String url = "https://www.example.com";
         String blockedDomain = "www.example.com";
 
-        when(shortenUrlProperties.getBlacklist()).thenReturn(Set.of(blockedDomain));
+        when(shortenUrlProperties.getBlockedDomain()).thenReturn(Set.of(blockedDomain));
 
         assertThatThrownBy(() -> shortenUrlValidator.validate(url))
             .isInstanceOf(ValidationException.class)
