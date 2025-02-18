@@ -1,9 +1,36 @@
 spring:
   application:
     name: onem-backend-java
+  profiles:
+    active: dev
 
 shortener :
   expiredMinute : 1
   blockedDomains :
     - "https://mvnrepository.com"
     - "https://papago.naver.com"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev  # 개발 환경(dev) 설정
+shortener:
+  expiredMinute: 1
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stg
+shortener:
+  expiredMinute: 3
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prd
+shortener:
+  expiredMinute: 1

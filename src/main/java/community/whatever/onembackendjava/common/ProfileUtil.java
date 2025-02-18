@@ -15,4 +15,8 @@ public class ProfileUtil {
     public Environment getEnvironment() {
         return environment;
     }
+    public  String getActiveProfile() {
+        String[] activeProfiles = environment.getActiveProfiles();
+        return activeProfiles[0] ;
+    }
 }
