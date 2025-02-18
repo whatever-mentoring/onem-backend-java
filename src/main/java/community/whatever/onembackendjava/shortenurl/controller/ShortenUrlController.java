@@ -1,6 +1,5 @@
 package community.whatever.onembackendjava.shortenurl.controller;
 
-import community.whatever.onembackendjava.shortenurl.dto.OriginUrlResponse;
 import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlRequest;
 import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.service.ShortenUrlService;
@@ -19,16 +18,26 @@ public class ShortenUrlController {
         this.shortenUrlService = shortenUrlService;
     }
 
+    /**
+     * <p>단축 URL 생성</p>
+     *
+     * @param request originUrl
+     * @return 단축 URL 정보
+     */
     @PostMapping("/shorten-url")
     public ShortenUrlResponse createShortenUrl(@RequestBody ShortenUrlRequest request) {
-        String shortenUrl = shortenUrlService.createShortenUrl(request.originUrl());
-        return new ShortenUrlResponse(shortenUrl);
+        return shortenUrlService.createShortenUrl(request.originUrl());
     }
 
+    /**
+     * <p>단축 URL 조회</p>
+     *
+     * @param shortenUrlKey 단축 URL Key
+     * @return 단축 URL 정보
+     */
     @GetMapping("/shorten-url/{shortenUrlKey}")
-    public OriginUrlResponse getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
-        String originUrl = shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey);
-        return new OriginUrlResponse(originUrl);
+    public ShortenUrlResponse getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
+        return shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey);
     }
 
 }

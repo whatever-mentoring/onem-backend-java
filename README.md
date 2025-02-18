@@ -1,4 +1,4 @@
-# onem-backend-kotlin
+# onem-backend-java
 
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
 internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
@@ -35,30 +35,37 @@ url-shortener 는 다음과 같은 요건을 가지고 있습니다.
 
 ### how to run
 
-1. application build
+1. Set Up .env File
 
 ```shell
-./gradlew bootJar
+PROFILE=dev
+DATA_SOURCE_URL=jdbc:mysql://mysql:3306/shortenurl
+DATA_SOURCE_USERNAME=root
+DATA_SOURCE_PASSWORD=root
 ```
 
-2. application run
+2. Initialize Docker Swarm
 
 ```shell
-java -jar build/libs/onem-backend-kotlin-0.0.1-SNAPSHOT.jar
+docker swarm init
 ````
 
-2. create shorten-url key
+3. Deploy the Stack
 
 ```shell
-curl -X POST --location "http://localhost:8080/shorten-url/create" \
-    -H "Content-Type: application/json" \
-    -d 'https://www.google.com'
+docker stack deploy -c docker-compose.yml shortenurl
 ```
 
-3. search shorten-url by created key
+4. create shorten-url by origin-url
 
 ```shell
-curl -X POST --location "http://localhost:8080/shorten-url/search" \
+curl -X POST --location "http://localhost:8080/shorten-url" \
     -H "Content-Type: application/json" \
-    -d '4888'
+    -d '{"originUrl": "https://www.onembackend.com"}'
+```
+
+5. get origin-url by shorten-url
+
+```shell
+curl -X GET --location "http://localhost:8080/shorten-url/dev-NU1IQzc1WGF0eEU"
 ```

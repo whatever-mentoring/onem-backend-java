@@ -5,10 +5,10 @@ import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlExce
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.shortenurl.component.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.component.ShortenUrlValidator;
+import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import community.whatever.onembackendjava.shortenurl.repository.ShortenUrlRepository;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -29,37 +29,41 @@ public class ShortenUrlService {
         this.shortenUrlRepository = shortenUrlRepository;
     }
 
-    public String createShortenUrl(String originUrl) {
+    /**
+     * <p>단축 URL 생성</p>
+     *
+     * @param originUrl originUrl
+     * @return 단축 URL 정보
+     */
+    public ShortenUrlResponse createShortenUrl(String originUrl) {
         shortenUrlValidator.validate(originUrl);
 
-        ShortenUrl shortenUrl = saveShortenUrl(originUrl);
-        return shortenUrl.getShortenUrlKey();
+        long uniqueId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        ShortenUrl shortenUrl = ShortenUrl.create(
+            originUrl,
+            shortenUrlKeyGenerator.generate(uniqueId),
+            shortenUrlProperties.getExpiredDuration()
+        );
+
+        shortenUrlRepository.save(shortenUrl);
+        return ShortenUrlResponse.from(shortenUrl);
     }
 
 
-    public String getOriginUrlByShortenUrlKey(String shortenUrlKey) {
+    /**
+     * <p>단축 URL 조회</p>
+     *
+     * @param shortenUrlKey 단축 URL KEY
+     * @return 단축 URL 정보
+     */
+    public ShortenUrlResponse getOriginUrlByShortenUrlKey(String shortenUrlKey) {
         ShortenUrl shortenUrl = shortenUrlRepository.findByShortenUrlKey(shortenUrlKey)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_SHORTEN_URL));
 
-        validateNotExpired(shortenUrl);
-        return shortenUrl.getOriginUrl();
-    }
-
-    private ShortenUrl saveShortenUrl(String originUrl) {
-        long uniqueId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-
-        String shortenUrlKey = shortenUrlKeyGenerator.generate(uniqueId);
-        LocalDateTime expirationTime = LocalDateTime.now().plus(shortenUrlProperties.getExpiredDuration());
-
-        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, expirationTime);
-        shortenUrlRepository.save(shortenUrl);
-
-        return shortenUrl;
-    }
-
-    private void validateNotExpired(ShortenUrl shortenUrl) {
-        if (shortenUrl.getExpiredAt().isBefore(LocalDateTime.now())) {
+        if (shortenUrl.isExpired()) {
             throw new ExpiredUrlException(ErrorCode.EXPIRED_SHORTEN_URL);
         }
+        return ShortenUrlResponse.from(shortenUrl);
     }
+
 }
