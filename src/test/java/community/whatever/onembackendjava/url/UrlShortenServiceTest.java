@@ -4,7 +4,7 @@ import community.whatever.onembackendjava.common.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.exception.ExpiredException;
 import community.whatever.onembackendjava.expiration.ExpirationChecker;
 import community.whatever.onembackendjava.expiration.FakeExpirationChecker;
-import community.whatever.onembackendjava.expiration.TimeBasedExpirationChecker;
+import community.whatever.onembackendjava.expiration.DefaultExpirationChecker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,11 +33,11 @@ class UrlShortenServiceTest {
 
     @BeforeEach
     void setUp(){
-        ExpirationChecker fakeExpirationChecker = new FakeExpirationChecker(true);
-        ExpirationChecker expirationCheker = new TimeBasedExpirationChecker();
+        ExpirationChecker allwaysTrueExpirationChecker  = new FakeExpirationChecker(true);
+        ExpirationChecker expirationCheker = new DefaultExpirationChecker();
 
         urlShortenService = new UrlShortenService(urlShortenRepository, urlShortenProperties, shortenUrlKeyGenerator, expirationCheker);
-        urlShortenService2 = new UrlShortenService(urlShortenRepository, urlShortenProperties, shortenUrlKeyGenerator,  fakeExpirationChecker);
+        urlShortenService2 = new UrlShortenService(urlShortenRepository, urlShortenProperties, shortenUrlKeyGenerator,  allwaysTrueExpirationChecker );
 
         setUpKey = urlShortenService.createKey("https://github.com");
     }
