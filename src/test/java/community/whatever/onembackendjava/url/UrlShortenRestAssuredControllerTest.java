@@ -39,7 +39,7 @@ public class UrlShortenRestAssuredControllerTest {
                         .body(params)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .when()
-                        .post("/shorten-url/create")
+                        .post("/shorten-url")
                         .then().log().all()
                         .extract();
 
