@@ -18,12 +18,23 @@ public class ShortenUrlController {
         this.shortenUrlService = shortenUrlService;
     }
 
+    /**
+     * <p>단축 URL 생성</p>
+     *
+     * @param request originUrl
+     * @return 단축 URL 정보
+     */
     @PostMapping("/shorten-url")
     public ShortenUrlResponse createShortenUrl(@RequestBody ShortenUrlRequest request) {
         return shortenUrlService.createShortenUrl(request.originUrl());
     }
 
-
+    /**
+     * <p>단축 URL 조회</p>
+     *
+     * @param shortenUrlKey 단축 URL Key
+     * @return 단축 URL 정보
+     */
     @GetMapping("/shorten-url/{shortenUrlKey}")
     public ShortenUrlResponse getOriginUrlByShortenUrlKey(@PathVariable String shortenUrlKey) {
         return shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey);
