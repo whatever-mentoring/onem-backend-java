@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
-import community.whatever.onembackendjava.shortenurl.component.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.component.ShortenUrlValidator;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import community.whatever.onembackendjava.shortenurl.repository.ShortenUrlRepository;

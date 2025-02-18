@@ -3,8 +3,8 @@ package community.whatever.onembackendjava.shortenurl.service;
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
-import community.whatever.onembackendjava.shortenurl.component.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.component.ShortenUrlValidator;
+import community.whatever.onembackendjava.shortenurl.component.SnowflakeKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
@@ -17,15 +17,15 @@ public class ShortenUrlService {
 
     private final ShortenUrlProperties shortenUrlProperties;
     private final ShortenUrlValidator shortenUrlValidator;
-    private final ShortenUrlKeyGenerator shortenUrlKeyGenerator;
+    private final SnowflakeKeyGenerator snowflakeKeyGenerator;
     private final ShortenUrlRepository shortenUrlRepository;
 
     public ShortenUrlService(ShortenUrlProperties shortenUrlProperties,
-        ShortenUrlValidator shortenUrlValidator, ShortenUrlKeyGenerator shortenUrlKeyGenerator,
+        ShortenUrlValidator shortenUrlValidator, SnowflakeKeyGenerator snowflakeKeyGenerator,
         ShortenUrlRepository shortenUrlRepository) {
         this.shortenUrlProperties = shortenUrlProperties;
         this.shortenUrlValidator = shortenUrlValidator;
-        this.shortenUrlKeyGenerator = shortenUrlKeyGenerator;
+        this.snowflakeKeyGenerator = snowflakeKeyGenerator;
         this.shortenUrlRepository = shortenUrlRepository;
     }
 
@@ -38,10 +38,9 @@ public class ShortenUrlService {
     public ShortenUrlResponse createShortenUrl(String originUrl) {
         shortenUrlValidator.validate(originUrl);
 
-        long uniqueId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         ShortenUrl shortenUrl = ShortenUrl.create(
             originUrl,
-            shortenUrlKeyGenerator.generate(uniqueId),
+            snowflakeKeyGenerator.generate(),
             shortenUrlProperties.getExpiredDuration()
         );
 
