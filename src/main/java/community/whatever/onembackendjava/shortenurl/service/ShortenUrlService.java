@@ -39,11 +39,11 @@ public class ShortenUrlService {
         shortenUrlValidator.validate(originUrl);
 
         long uniqueId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-        ShortenUrl shortenUrl = ShortenUrl.builder()
-            .originUrl(originUrl)
-            .shortenUrlKey(shortenUrlKeyGenerator.generate(uniqueId))
-            .duration(shortenUrlProperties.getExpiredDuration())
-            .build();
+        ShortenUrl shortenUrl = ShortenUrl.create(
+            originUrl,
+            shortenUrlKeyGenerator.generate(uniqueId),
+            shortenUrlProperties.getExpiredDuration()
+        );
 
         shortenUrlRepository.save(shortenUrl);
         return ShortenUrlResponse.from(shortenUrl);

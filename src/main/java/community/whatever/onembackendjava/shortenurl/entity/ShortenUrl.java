@@ -29,11 +29,15 @@ public class ShortenUrl {
 
     }
 
-    @Builder
-    public ShortenUrl(String originUrl, String shortenUrlKey, Duration duration) {
+    public ShortenUrl(String originUrl, String shortenUrlKey, LocalDateTime expiredAt) {
         this.originUrl = originUrl;
         this.shortenUrlKey = shortenUrlKey;
-        this.expiredAt = LocalDateTime.now().plus(duration);
+        this.expiredAt = expiredAt;
+    }
+
+    public static ShortenUrl create(String originUrl, String shortenUrlKey, Duration duration) {
+        LocalDateTime expirationTime = LocalDateTime.now().plus(duration);
+        return new ShortenUrl(originUrl, shortenUrlKey, expirationTime);
     }
 
     public Long getId() {
