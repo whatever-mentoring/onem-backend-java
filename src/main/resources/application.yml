@@ -7,7 +7,7 @@ spring:
 
 shorten-url:
   expired-duration: 60s
-  blocked-domain:
+  blocked-domains:
     - www.example.com
 
 ---
