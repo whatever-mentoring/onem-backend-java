@@ -3,7 +3,7 @@ package community.whatever.onembackendjava.url;
 import community.whatever.onembackendjava.common.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.exception.ExpiredException;
 import community.whatever.onembackendjava.expiration.ExpirationChecker;
-import community.whatever.onembackendjava.expiration.TimeBasedExpirationChecker;
+import community.whatever.onembackendjava.expiration.DefaultExpirationChecker;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class UrlShortenService {
             throw new IllegalArgumentException("Invalid key");
         }
         ShortenUrl shortenUrl = urlShortenRepository.getShotenUrl(key) ;
-        if (expirationCheker.isExpired(LocalDateTime.now())) {
+        if (expirationCheker.isExpired(shortenUrl.expirationTime())) {
             throw new ExpiredException("currentKey expired");
         }
         return shortenUrl.originUrl() ;
