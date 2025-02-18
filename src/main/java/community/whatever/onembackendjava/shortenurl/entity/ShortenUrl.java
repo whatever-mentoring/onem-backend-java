@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import lombok.Builder;
 
 @Entity
 public class ShortenUrl {
@@ -27,10 +29,11 @@ public class ShortenUrl {
 
     }
 
-    public ShortenUrl(String originUrl, String shortenUrlKey, LocalDateTime expiredAt) {
+    @Builder
+    public ShortenUrl(String originUrl, String shortenUrlKey, Duration expiredAt) {
         this.originUrl = originUrl;
         this.shortenUrlKey = shortenUrlKey;
-        this.expiredAt = expiredAt;
+        this.expiredAt = LocalDateTime.now().plus(expiredAt);
     }
 
     public Long getId() {
@@ -48,4 +51,9 @@ public class ShortenUrl {
     public LocalDateTime getExpiredAt() {
         return expiredAt;
     }
+
+    public boolean isExpired() {
+        return expiredAt.isBefore(LocalDateTime.now());
+    }
+
 }
