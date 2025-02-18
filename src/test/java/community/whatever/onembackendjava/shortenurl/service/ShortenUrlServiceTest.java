@@ -36,34 +36,6 @@ class ShortenUrlServiceTest {
     @Mock
     private ShortenUrlRepository shortenUrlRepository;
 
-//    @Test
-//    void shorten_url을_생성한다() {
-//        String originUrl = "https://www.google.com";
-//        String shortenUrlKey = "dev-abcdefg";
-//
-//        doNothing().when(shortenUrlValidator).validate(originUrl);
-//
-//        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, shortenUrlProperties.getExpiredDuration());
-//        when(shortenUrlRepository.save(any(ShortenUrl.class))).thenReturn(shortenUrl);
-//
-//        String result = shortenUrlService.createShortenUrl(originUrl);
-//
-//        assertThat(result).isEqualTo(shortenUrlKey);
-//    }
-//
-//    @Test
-//    void origin_url을_조회한다() {
-//        String originUrl = "https://www.google.com";
-//        String shortenUrlKey = "dev-abcdefg";
-//        ShortenUrl shortenUrl = new ShortenUrl(originUrl, shortenUrlKey, shortenUrlProperties.getExpiredDuration());
-//
-//        when(shortenUrlRepository.findByShortenUrlKey(shortenUrlKey)).thenReturn(Optional.of(shortenUrl));
-//
-//        String result = shortenUrlService.getOriginUrlByShortenUrlKey(shortenUrlKey);
-//
-//        assertThat(result).isEqualTo(originUrl);
-//    }
-
     @Test
     void origin_url이_존재하지_않을_경우_예외가_발생한다() {
         String shortenUrlKey = "dev-";
