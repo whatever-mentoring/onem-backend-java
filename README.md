@@ -1,4 +1,4 @@
-# onem-backend-kotlin
+# onem-backend-java
 
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
 internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
