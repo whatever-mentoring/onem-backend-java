@@ -42,6 +42,13 @@ public class UrlShortenService {
         if (isblockedDomains(url)) {
             throw new IllegalArgumentException("blocked Domain");
         }
+
+        ShortenUrl existingShortenUrl = urlShortenRepository.existUrl(url) ;
+        // 존재하고, 만료 안되었으면 존재하던 key 리턴
+        if(existingShortenUrl!= null && !expirationCheker.isExpired(existingShortenUrl.expirationTime())) {
+                return existingShortenUrl.urlKey() ;
+            }
+
         // 만료시간 세팅
         LocalDateTime settingTime =LocalDateTime.now().plusMinutes(urlShortenProperties.getExpiredMinute());
 
