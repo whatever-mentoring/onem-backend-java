@@ -30,10 +30,10 @@ public class ShortenUrl {
     }
 
     @Builder
-    public ShortenUrl(String originUrl, String shortenUrlKey, Duration expiredAt) {
+    public ShortenUrl(String originUrl, String shortenUrlKey, Duration duration) {
         this.originUrl = originUrl;
         this.shortenUrlKey = shortenUrlKey;
-        this.expiredAt = LocalDateTime.now().plus(expiredAt);
+        this.expiredAt = LocalDateTime.now().plus(duration);
     }
 
     public Long getId() {

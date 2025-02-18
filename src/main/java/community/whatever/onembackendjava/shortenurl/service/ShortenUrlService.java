@@ -42,7 +42,7 @@ public class ShortenUrlService {
         ShortenUrl shortenUrl = ShortenUrl.builder()
             .originUrl(originUrl)
             .shortenUrlKey(shortenUrlKeyGenerator.generate(uniqueId))
-            .expiredAt(shortenUrlProperties.getExpiredDuration())
+            .duration(shortenUrlProperties.getExpiredDuration())
             .build();
 
         shortenUrlRepository.save(shortenUrl);
