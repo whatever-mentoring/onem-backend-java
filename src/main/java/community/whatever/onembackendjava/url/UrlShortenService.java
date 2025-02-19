@@ -45,7 +45,7 @@ public class UrlShortenService {
 
         ShortenUrl existingShortenUrl = urlShortenRepository.existUrl(url) ;
         // 존재하고, 만료 안되었으면 존재하던 key 리턴
-        if(existingShortenUrl!= null && !expirationCheker.isExpired(existingShortenUrl.expirationTime())) {
+        if(existingShortenUrl!= null && expirationCheker.isNotExpired(existingShortenUrl.expirationTime())) {
                 return existingShortenUrl.urlKey() ;
             }
 
