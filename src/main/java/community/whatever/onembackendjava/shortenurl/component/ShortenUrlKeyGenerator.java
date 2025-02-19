@@ -1,38 +1,22 @@
 package community.whatever.onembackendjava.shortenurl.component;
 
-import java.util.Base64;
-import org.springframework.core.env.Environment;
+import com.github.f4b6a3.ulid.Ulid;
+import community.whatever.onembackendjava.common.utils.Base62Encoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShortenUrlKeyGenerator {
 
-    private static final String CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private final ProfileProvider profileProvider;
 
-    private final Environment environment;
-
-    public ShortenUrlKeyGenerator(Environment environment) {
-        this.environment = environment;
+    public ShortenUrlKeyGenerator(ProfileProvider profileProvider) {
+        this.profileProvider = profileProvider;
     }
 
-    public String generate(long number) {
-        String profile = environment.getProperty("spring.profiles.active");
-        String generatedKey = Base64.getUrlEncoder().withoutPadding().encodeToString(encode(number).getBytes());
-        return profile + "-" + generatedKey;
+    public String generate() {
+        String profile = profileProvider.getActiveProfile();
+        String encodedKey = Base62Encoder.encode(Ulid.fast().getTime());
+        return profile + "-" + encodedKey;
     }
 
-    private String encode(long number) {
-        StringBuilder sb = new StringBuilder();
-        while (number > 0) {
-            final long remainder = number % 62;
-            sb.insert(0, CHARS.charAt((int) remainder));
-            number /= 62;
-        }
-
-        while (sb.length() < 7) {
-            sb.insert(0, "0");
-        }
-
-        return sb.toString();
-    }
 }

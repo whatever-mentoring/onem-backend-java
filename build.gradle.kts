@@ -26,6 +26,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
     implementation("org.projectlombok:lombok")
+    implementation("com.github.f4b6a3:ulid-creator:5.2.3")
+    implementation("net.datafaker:datafaker:2.4.2")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

@@ -35,9 +35,8 @@ public class ShortenUrl {
         this.expiredAt = expiredAt;
     }
 
-    public static ShortenUrl create(String originUrl, String shortenUrlKey, Duration duration) {
-        LocalDateTime expirationTime = LocalDateTime.now().plus(duration);
-        return new ShortenUrl(originUrl, shortenUrlKey, expirationTime);
+    public static ShortenUrl create(String originUrl, String shortenUrlKey, LocalDateTime expiredAt) {
+        return new ShortenUrl(originUrl, shortenUrlKey, expiredAt);
     }
 
     public Long getId() {
