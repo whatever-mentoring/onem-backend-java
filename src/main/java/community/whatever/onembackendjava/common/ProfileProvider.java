@@ -4,11 +4,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfileUtil {
+public class ProfileProvider {
 
     private final Environment environment;
 
-    public ProfileUtil(Environment environment) {
+    public ProfileProvider(Environment environment) {
         this.environment = environment;
     }
 
