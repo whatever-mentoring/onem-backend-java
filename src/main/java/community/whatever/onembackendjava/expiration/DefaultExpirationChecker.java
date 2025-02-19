@@ -14,6 +14,6 @@ public class DefaultExpirationChecker implements ExpirationChecker {
 
     @Override
     public boolean isNotExpired(LocalDateTime expirationTime) {
-        return false;
+        return !isExpired(expirationTime);
     }
 }

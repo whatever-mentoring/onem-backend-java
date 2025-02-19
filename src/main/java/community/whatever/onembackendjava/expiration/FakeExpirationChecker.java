@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 public class FakeExpirationChecker implements ExpirationChecker {
-    private final boolean expired;
+    private  boolean expired;
 
     public FakeExpirationChecker(boolean expired) {
         this.expired = expired;
@@ -18,6 +18,6 @@ public class FakeExpirationChecker implements ExpirationChecker {
 
     @Override
     public boolean isNotExpired(LocalDateTime expirationTime) {
-        return expired;
+        return !expired;
     }
 }
