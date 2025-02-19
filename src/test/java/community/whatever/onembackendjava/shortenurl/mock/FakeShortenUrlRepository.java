@@ -18,4 +18,8 @@ public class FakeShortenUrlRepository implements ShortenUrlRepository {
     public void save(ShortenUrl shortenUrl) {
         storage.put(shortenUrl.getShortenUrlKey(), shortenUrl);
     }
+
+    public void clear() {
+        storage.clear();
+    }
 }

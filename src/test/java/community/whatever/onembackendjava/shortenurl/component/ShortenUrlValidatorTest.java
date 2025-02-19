@@ -4,8 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
-import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
-import java.util.Set;
+import community.whatever.onembackendjava.shortenurl.TestFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,10 +16,7 @@ class ShortenUrlValidatorTest {
 
     @BeforeEach
     void setUp() {
-        ShortenUrlProperties shortenUrlProperties = new ShortenUrlProperties();
-        shortenUrlProperties.setBlockedDomains(Set.of("www.example.com"));
-
-        shortenUrlValidator = new ShortenUrlValidator(shortenUrlProperties);
+        shortenUrlValidator = TestFixtures.createShortenUrlValidator();
     }
 
     @ParameterizedTest
