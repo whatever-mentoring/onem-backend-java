@@ -9,7 +9,6 @@ import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import community.whatever.onembackendjava.shortenurl.repository.ShortenUrlRepository;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
