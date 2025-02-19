@@ -38,9 +38,7 @@ class ShortenUrlValidatorTest {
 
     @Test
     void 차단된_url일_경우_예외가_발생한다() {
-        String url = "https://www.example.com";
-
-        assertThatThrownBy(() -> shortenUrlValidator.validate(url))
+        assertThatThrownBy(() -> shortenUrlValidator.validate("https://www.example.com"))
             .isInstanceOf(ValidationException.class)
             .hasMessage(ErrorCode.BLOCKED_URL.getMessage());
     }
