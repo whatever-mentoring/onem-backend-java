@@ -10,7 +10,7 @@ import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import community.whatever.onembackendjava.shortenurl.mock.FakeShortenUrlRepository;
 import community.whatever.onembackendjava.shortenurl.mock.StubShortenUrlValidator;
-import community.whatever.onembackendjava.shortenurl.mock.StubSnowflakeKeyGenerator;
+import community.whatever.onembackendjava.shortenurl.mock.StubShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ class ShortenUrlServiceTest {
         ShortenUrlProperties shortenUrlProperties = new ShortenUrlProperties();
         shortenUrlProperties.setExpiredDuration(Duration.ofMinutes(1));
         StubShortenUrlValidator shortenUrlValidator = new StubShortenUrlValidator();
-        StubSnowflakeKeyGenerator snowflakeKeyGenerator = new StubSnowflakeKeyGenerator();
+        StubShortenUrlKeyGenerator snowflakeKeyGenerator = new StubShortenUrlKeyGenerator();
         shortenUrlRepository = new FakeShortenUrlRepository();
 
         shortenUrlService = new ShortenUrlService(

@@ -1,4 +1,4 @@
-package community.whatever.onembackendjava.shortenurl.component;
+package community.whatever.onembackendjava.common.utils;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;

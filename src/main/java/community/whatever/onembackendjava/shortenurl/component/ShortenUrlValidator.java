@@ -2,6 +2,7 @@ package community.whatever.onembackendjava.shortenurl.component;
 
 import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ValidationException;
+import community.whatever.onembackendjava.common.utils.UrlParser;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
 import org.springframework.stereotype.Component;
 

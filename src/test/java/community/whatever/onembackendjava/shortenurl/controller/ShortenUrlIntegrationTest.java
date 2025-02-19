@@ -78,7 +78,7 @@ class ShortenUrlIntegrationTest extends MysqlTestContainer {
     @Test
     void origin_url을_조회한다() throws Exception {
         String originUrl = "https://www.google.com";
-        String shortenUrlKey = "dev-abcdefg";
+        String shortenUrlKey = "dev-NzdzaHhtbjlNWnU";
 
         ResultActions resultActions = mockMvc.perform(get("/shorten-url/{shortenUrlKey}", shortenUrlKey));
 
@@ -89,7 +89,7 @@ class ShortenUrlIntegrationTest extends MysqlTestContainer {
 
     @Test
     void origin_url이_존재하지_않을_경우_예외가_발생한다() throws Exception {
-        String shortenUrlKey = "dev-";
+        String shortenUrlKey = "dev-NzdzaHhtbjlNWnx";
 
         ResultActions resultActions = mockMvc.perform(get("/shorten-url/{shortenUrlKey}", shortenUrlKey));
 
@@ -101,7 +101,7 @@ class ShortenUrlIntegrationTest extends MysqlTestContainer {
 
     @Test
     void origin_url이_만료된_경우_예외가_발생한다() throws Exception {
-        String shortenUrlKey = "dev-expired";
+        String shortenUrlKey = "dev-NzdzaHhtbjlNWnz";
 
         ResultActions resultActions = mockMvc.perform(get("/shorten-url/{shortenUrlKey}", shortenUrlKey));
 

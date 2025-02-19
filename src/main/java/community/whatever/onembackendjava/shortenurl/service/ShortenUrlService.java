@@ -4,7 +4,7 @@ import community.whatever.onembackendjava.common.exception.ErrorCode;
 import community.whatever.onembackendjava.common.exception.custom.ExpiredUrlException;
 import community.whatever.onembackendjava.common.exception.custom.NotFoundException;
 import community.whatever.onembackendjava.shortenurl.component.ShortenUrlValidator;
-import community.whatever.onembackendjava.shortenurl.component.SnowflakeKeyGenerator;
+import community.whatever.onembackendjava.shortenurl.component.ShortenUrlKeyGenerator;
 import community.whatever.onembackendjava.shortenurl.dto.ShortenUrlResponse;
 import community.whatever.onembackendjava.shortenurl.entity.ShortenUrl;
 import community.whatever.onembackendjava.shortenurl.properties.ShortenUrlProperties;
@@ -18,15 +18,15 @@ public class ShortenUrlService {
 
     private final ShortenUrlProperties shortenUrlProperties;
     private final ShortenUrlValidator shortenUrlValidator;
-    private final SnowflakeKeyGenerator snowflakeKeyGenerator;
+    private final ShortenUrlKeyGenerator shortenUrlKeyGenerator;
     private final ShortenUrlRepository shortenUrlRepository;
 
     public ShortenUrlService(ShortenUrlProperties shortenUrlProperties,
-        ShortenUrlValidator shortenUrlValidator, SnowflakeKeyGenerator snowflakeKeyGenerator,
+        ShortenUrlValidator shortenUrlValidator, ShortenUrlKeyGenerator shortenUrlKeyGenerator,
         ShortenUrlRepository shortenUrlRepository) {
         this.shortenUrlProperties = shortenUrlProperties;
         this.shortenUrlValidator = shortenUrlValidator;
-        this.snowflakeKeyGenerator = snowflakeKeyGenerator;
+        this.shortenUrlKeyGenerator = shortenUrlKeyGenerator;
         this.shortenUrlRepository = shortenUrlRepository;
     }
 
@@ -41,7 +41,7 @@ public class ShortenUrlService {
 
         ShortenUrl shortenUrl = ShortenUrl.create(
             originUrl,
-            snowflakeKeyGenerator.generate(),
+            shortenUrlKeyGenerator.generate(),
             getExpirationTime(shortenUrlProperties.getExpiredDuration())
         );
 
