@@ -15,4 +15,9 @@ public class FakeExpirationChecker implements ExpirationChecker {
     public boolean isExpired(LocalDateTime expirationTime) {
         return expired;
     }
+
+    @Override
+    public boolean isNotExpired(LocalDateTime expirationTime) {
+        return expired;
+    }
 }
