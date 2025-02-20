@@ -7,7 +7,7 @@ export const options = {
 };
 
 export default function () {
-  const url = 'http://localhost:8080/shorten-url/dev-abcdefg';
+  const url = 'http://shortenurl:8080/shorten-url/dev-ah31k1g2h1k';
 
   http.get(url);
 }
