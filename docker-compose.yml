@@ -17,15 +17,18 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./dashboards:/var/lib/grafana/dashboards
     ports:
       - "3000:3000"
     networks:
       - shortenurl-network
     depends_on:
       - influxdb
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
     deploy:
       replicas: 1
 
@@ -49,12 +52,11 @@ services:
     networks:
       - shortenurl-network
     deploy:
-      replicas: 1
+      replicas: 3
       resources:
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: "1GB"
-
 
   mysql:
     image: mysql:8.0.41
@@ -79,10 +81,24 @@ services:
       - INFLUXDB_ADMIN_USER=admin
       - INFLUXDB_ADMIN_PASSWORD=admin
       - INFLUXDB_HTTP_AUTH_ENABLED=false
+      - INFLUXDB_HTTP_MAX_BODY_SIZE=50MB
     networks:
       - shortenurl-network
     volumes:
       - influxdb_data:/var/lib/influxdb
+    deploy:
+      replicas: 1
+
+  k6:
+    image: grafana/k6
+    container_name: k6
+    volumes:
+      - ./k6-scripts/get-origin-url.js:/script.js
+    networks:
+      - shortenurl-network
+    depends_on:
+      - influxdb
+    entrypoint: [ "sleep", "infinity" ]
     deploy:
       replicas: 1
 
