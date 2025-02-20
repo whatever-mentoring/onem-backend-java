@@ -12,12 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class ShortenUrlValidatorTest {
 
-    private ShortenUrlValidator shortenUrlValidator;
-
-    @BeforeEach
-    void setUp() {
-        shortenUrlValidator = TestFixtures.createShortenUrlValidator();
-    }
+    private final ShortenUrlValidator shortenUrlValidator = TestFixtures.createShortenUrlValidator();
 
     @ParameterizedTest
     @CsvSource({
