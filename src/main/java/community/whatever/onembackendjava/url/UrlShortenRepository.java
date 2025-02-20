@@ -16,6 +16,16 @@ public class UrlShortenRepository {
         return shortenUrlMap.containsKey(key) ;
     }
 
+    // O(N)이라서 키 같을때 어떻게 처리 할지 방법 고민할 예정
+    ShortenUrl existUrl(String url) {
+        for (ShortenUrl shortenUrl : shortenUrlMap.values()) {
+            if (shortenUrl.originUrl().equals(url)) {
+                return shortenUrl ;
+            }
+        }
+        return null ;
+    }
+
     public void saveKey(ShortenUrl shortenUrl){
         shortenUrlMap.put(shortenUrl.urlKey(), shortenUrl) ;
     }
