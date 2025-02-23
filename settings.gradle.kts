@@ -1,1 +1,1 @@
-rootProject.name = "onem-backend-java"
+rootProject.name = "onem-backend"

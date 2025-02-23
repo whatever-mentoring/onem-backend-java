@@ -1,17 +1,20 @@
-# onem-backend-kotlin
+# onem-backend
 
-whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!  
-internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 url-shortener 입니다.  
-해당 서비스는 정상 운영 중이긴 하지만 안타깝게도 전임자는 퇴사 했고, 알 수 없는 문제가 많이 있습니다.
+whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!
 
-하지만 당신은 이 서비스의 새로운 오너로서 지금의 문제를 개선하고 새로운 업무 요건을 개발할 수 있을 것 입니다!
-
-url-shortener 는 다음과 같은 요건을 가지고 있습니다.
+internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 그 중 하나인 url-shortener 입니다.  
+url-shortener 서비스를 운영하기 위해 제시된 정보는 아래와 같습니다.
 
 - 완전한 util 서비스로 긴 url 을 짧게 줄여주는 서비스입니다.
-- internal vpc 에서 운영되고 있어 인증/인가 로직이 없습니다.
+- internal vpc 에서 운영되고 있어 인증/인가 로직을 생략 합니다.
 - 인프라 스펙은 1 core, 1GB memory, 1 pod 로 운영되고 있습니다.
 - 기존 트래픽은 RPM 30 입니다.
+- 가끔 버그가 발생하지만 원인을 알 수 없습니다.
+- 선임 개발자가 있긴 하지만 너무 바빠 코드 리뷰만 도와줄 수 있습니다.
+
+이런 어려움이 있지만, 당신은 이 서비스의 새로운 오너로서 지금의 문제를 개선하고 새로운 업무 요건을 개발할 수 있을 것 입니다!
+
+> kotlin 초기 세팅은 mainKt branch 에 있습니다.
 
 ### guideline
 
@@ -31,7 +34,6 @@ url-shortener 는 다음과 같은 요건을 가지고 있습니다.
 - 구조화가 필요한 시점을 판단하세요.
 - 구현되어 있는 것을 변경할 때 무엇을, 어떤 순서로 변경할지 판단하세요.
 - record 를 제외하고 java 11 을 넘어가는 문법은 사용을 지양해주세요.
-- redis 는 허용되지 않습니다.
 
 ### how to run
 
@@ -44,7 +46,7 @@ url-shortener 는 다음과 같은 요건을 가지고 있습니다.
 2. application run
 
 ```shell
-java -jar build/libs/onem-backend-kotlin-0.0.1-SNAPSHOT.jar
+java -jar build/libs/onem-backend-0.0.1-SNAPSHOT.jar
 ````
 
 2. create shorten-url key
