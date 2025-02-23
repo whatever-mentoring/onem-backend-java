@@ -12,7 +12,7 @@ internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당
 - 가끔 버그가 발생하지만 원인을 알 수 없습니다.
 - 선임 개발자가 있긴 하지만 너무 바빠 코드 리뷰만 도와줄 수 있습니다.
 
-어려움은 있지만, 당신은 서비스의 새로운 오너로서 성공적인 운영을 해나갈 수 있을 것 입니다!
+어려움은 있겠지만, 당신은 서비스의 새로운 오너로서 성공적인 운영을 해나갈 수 있을 것 입니다!
 
 > kotlin 초기 세팅은 `mainKt` branch 에 있습니다.
 
@@ -38,29 +38,28 @@ internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당
 ### how to run
 
 1. application build
-
-```shell
-./gradlew bootJar
-```
+    ```shell
+    ./gradlew bootJar
+    ```
 
 2. application run
 
-```shell
-java -jar build/libs/onem-backend-0.0.1-SNAPSHOT.jar
-````
+    ```shell
+    java -jar build/libs/onem-backend-0.0.1-SNAPSHOT.jar
+    ````
 
-2. create shorten-url key
+3. create shorten-url key
 
-```shell
-curl -X POST --location "http://localhost:8080/shorten-url/create" \
-    -H "Content-Type: application/json" \
-    -d 'https://www.google.com'
-```
+   ```shell
+   curl -X POST --location "http://localhost:8080/shorten-url/create" \
+       -H "Content-Type: application/json" \
+       -d 'https://www.google.com'
+   ```
 
-3. search shorten-url by created key
+4. search shorten-url by created key
 
-```shell
-curl -X POST --location "http://localhost:8080/shorten-url/search" \
-    -H "Content-Type: application/json" \
-    -d '4888'
-```
+    ```shell
+    curl -X POST --location "http://localhost:8080/shorten-url/search" \
+        -H "Content-Type: application/json" \
+        -d '4888'
+    ```
