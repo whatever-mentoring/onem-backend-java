@@ -2,8 +2,8 @@
 
 whatever 사의 internal-core 팀에 입사하신 것을 축하합니다!
 
-internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 그 중 하나인 url-shortener 입니다.  
-url-shortener 서비스를 운영하기 위해 제시된 정보는 아래와 같습니다.
+internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당신에게 처음으로 맡겨진 서비스는 그 중 하나인 url-shortener 입니다. url-shortener 서비스를 운영하기 위해 제시된
+정보는 아래와 같습니다.
 
 - 완전한 util 서비스로 긴 url 을 짧게 줄여주는 서비스입니다.
 - internal vpc 에서 운영되고 있어 인증/인가 로직을 생략 합니다.
