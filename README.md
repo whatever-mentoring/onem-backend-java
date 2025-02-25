@@ -66,3 +66,7 @@ internal-core 팀은 전사 공통 util 서비스를 제공하고 있으며, 당
 
 ### Swagger
 http://localhost:8080/swagger-ui/index.html
+
+### 배포
+https://broken-jennine-url-shortener-f1ad7b08.koyeb.app/swagger-ui/index.html
+(무료버전은 베를린에 있어서 느림.)
