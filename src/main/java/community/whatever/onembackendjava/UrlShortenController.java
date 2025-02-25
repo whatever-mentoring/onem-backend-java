@@ -1,5 +1,7 @@
 package community.whatever.onembackendjava;
 
+import community.whatever.onembackendjava.dto.ShortenUrlCreateRequest;
+import community.whatever.onembackendjava.dto.ShortenUrlCreateResponse;
 import community.whatever.onembackendjava.dto.ShortenUrlSearchRequest;
 import community.whatever.onembackendjava.dto.ShortenUrlSearchResponse;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +26,9 @@ public class UrlShortenController {
     }
 
     @PostMapping("/shorten-url/create")
-    public String shortenUrlCreate(@RequestBody String originUrl) {
+    public ShortenUrlCreateResponse shortenUrlCreate(@RequestBody ShortenUrlCreateRequest shortenUrlCreateRequest) {
         String randomKey = String.valueOf(new Random().nextInt(10000));
-        shortenUrls.put(randomKey, originUrl);
-        return randomKey;
+        shortenUrls.put(randomKey, shortenUrlCreateRequest.originUrl());
+        return new ShortenUrlCreateResponse(randomKey);
     }
 }
