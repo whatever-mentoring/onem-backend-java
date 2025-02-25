@@ -1,5 +1,7 @@
 package community.whatever.onembackendjava;
 
+import community.whatever.onembackendjava.dto.ShortenUrlSearchRequest;
+import community.whatever.onembackendjava.dto.ShortenUrlSearchResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,11 +16,11 @@ public class UrlShortenController {
     private final Map<String, String> shortenUrls = new HashMap<>();
 
     @PostMapping("/shorten-url/search")
-    public String shortenUrlSearch(@RequestBody String key) {
-        if (!shortenUrls.containsKey(key)) {
+    public ShortenUrlSearchResponse shortenUrlSearch(@RequestBody ShortenUrlSearchRequest shortenUrlSearchRequest) {
+        if (!shortenUrls.containsKey(shortenUrlSearchRequest.key())) {
             throw new IllegalArgumentException("Invalid key");
         }
-        return shortenUrls.get(key);
+        return new ShortenUrlSearchResponse(shortenUrls.get(shortenUrlSearchRequest.key()));
     }
 
     @PostMapping("/shorten-url/create")
