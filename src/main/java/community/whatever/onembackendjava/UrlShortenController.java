@@ -20,7 +20,7 @@ public class UrlShortenController {
     }
 
     @PostMapping("/shorten-url/create")
-    public CreateShortenUrlResponse shortenUrlCreate(@RequestBody CreateShortenUrlRequest request) {
+    public CreateShortenUrlResponse shortenUrlCreate(@Valid @RequestBody CreateShortenUrlRequest request) {
         return urlShortenService.createShortenUrl(request);
     }
 
