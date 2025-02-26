@@ -25,7 +25,14 @@ public class UrlShortenService {
         return new CreateShortenUrlResponse(randomKey);
     }
 
-    public HashMapResponse getHashMapData() {
+    public HashMapResponse getAllShortenUrls() {
         return new HashMapResponse(shortenUrls);
+    }
+
+    public String addToShortenUrls(PostShortenUrlsRequest request) {
+        if (request.shortenUrls() != null) {
+            shortenUrls.putAll(request.shortenUrls());
+        }
+        return "Success";
     }
 }
