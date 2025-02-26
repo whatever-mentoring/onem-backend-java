@@ -1,9 +1,9 @@
 package community.whatever.onembackendjava;
 
-import community.whatever.onembackendjava.dto.ShortenUrlCreateRequest;
-import community.whatever.onembackendjava.dto.ShortenUrlCreateResponse;
-import community.whatever.onembackendjava.dto.ShortenUrlSearchRequest;
-import community.whatever.onembackendjava.dto.ShortenUrlSearchResponse;
+import community.whatever.onembackendjava.dto.CreateShortenUrlRequest;
+import community.whatever.onembackendjava.dto.CreateShortenUrlResponse;
+import community.whatever.onembackendjava.dto.SearchShortenUrlRequest;
+import community.whatever.onembackendjava.dto.SearchShortenUrlResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,17 +18,17 @@ public class UrlShortenController {
     private final Map<String, String> shortenUrls = new HashMap<>();
 
     @PostMapping("/shorten-url/search")
-    public ShortenUrlSearchResponse shortenUrlSearch(@RequestBody ShortenUrlSearchRequest shortenUrlSearchRequest) {
-        if (!shortenUrls.containsKey(shortenUrlSearchRequest.key())) {
+    public SearchShortenUrlResponse shortenUrlSearch(@RequestBody SearchShortenUrlRequest searchShortenUrlRequest) {
+        if (!shortenUrls.containsKey(searchShortenUrlRequest.key())) {
             throw new IllegalArgumentException("Invalid key");
         }
-        return new ShortenUrlSearchResponse(shortenUrls.get(shortenUrlSearchRequest.key()));
+        return new SearchShortenUrlResponse(shortenUrls.get(searchShortenUrlRequest.key()));
     }
 
     @PostMapping("/shorten-url/create")
-    public ShortenUrlCreateResponse shortenUrlCreate(@RequestBody ShortenUrlCreateRequest shortenUrlCreateRequest) {
+    public CreateShortenUrlResponse shortenUrlCreate(@RequestBody CreateShortenUrlRequest createShortenUrlRequest) {
         String randomKey = String.valueOf(new Random().nextInt(10000));
-        shortenUrls.put(randomKey, shortenUrlCreateRequest.originUrl());
-        return new ShortenUrlCreateResponse(randomKey);
+        shortenUrls.put(randomKey, createShortenUrlRequest.originUrl());
+        return new CreateShortenUrlResponse(randomKey);
     }
 }

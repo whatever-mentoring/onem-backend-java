@@ -1,5 +1,5 @@
 package community.whatever.onembackendjava.dto;
 
-public record ShortenUrlCreateRequest(
+public record SearchShortenUrlResponse(
     String originUrl
 ) {}
