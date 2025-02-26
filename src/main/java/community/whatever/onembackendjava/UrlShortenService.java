@@ -1,9 +1,6 @@
 package community.whatever.onembackendjava;
 
-import community.whatever.onembackendjava.dto.CreateShortenUrlRequest;
-import community.whatever.onembackendjava.dto.CreateShortenUrlResponse;
-import community.whatever.onembackendjava.dto.SearchShortenUrlRequest;
-import community.whatever.onembackendjava.dto.SearchShortenUrlResponse;
+import community.whatever.onembackendjava.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,5 +23,9 @@ public class UrlShortenService {
         String randomKey = String.valueOf(random.nextInt(10000));
         shortenUrls.put(randomKey, request.originUrl());
         return new CreateShortenUrlResponse(randomKey);
+    }
+
+    public HashMapResponse getHashMapData() {
+        return new HashMapResponse(shortenUrls);
     }
 }
