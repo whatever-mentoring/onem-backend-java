@@ -5,37 +5,43 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class UrlShortenService {
-    private final Map<String, String> shortenUrls = new HashMap<>();
-    private final Random random = new Random();
-
+    private final Map<String, String> shortenUrls = new ConcurrentHashMap<>();
+    
     public SearchShortenUrlResponse searchShortenUrl(SearchShortenUrlRequest request) {
-        if (!shortenUrls.containsKey(request.key())) {
+        String url = shortenUrls.get(request.key());
+        if (url == null) {
             throw new IllegalArgumentException("Invalid key");
         }
-        return new SearchShortenUrlResponse(shortenUrls.get(request.key()));
+        return new SearchShortenUrlResponse(url);
     }
 
     public CreateShortenUrlResponse createShortenUrl(CreateShortenUrlRequest request) {
         String randomKey;
+        String originUrl = request.originUrl();
+        
         do {
-            randomKey = String.valueOf(random.nextInt(10000));
-        } while (!shortenUrls.containsKey(randomKey));
-
-        shortenUrls.put(randomKey, request.originUrl());
+            randomKey = generateRandomKey();
+        } while (shortenUrls.putIfAbsent(randomKey, originUrl) != null);
+        
         return new CreateShortenUrlResponse(randomKey);
     }
 
+    private String generateRandomKey() {
+        return String.valueOf(ThreadLocalRandom.current().nextInt(10000));
+    }
+
     public HashMapResponse getAllShortenUrls() {
-        return new HashMapResponse(shortenUrls);
+        return new HashMapResponse(new HashMap<>(shortenUrls));
     }
 
     public String addToShortenUrls(PostShortenUrlsRequest request) {
         if (request.shortenUrls() != null) {
-            shortenUrls.putAll(request.shortenUrls());
+            request.shortenUrls().forEach(shortenUrls::putIfAbsent);
         }
         return "Success";
     }
