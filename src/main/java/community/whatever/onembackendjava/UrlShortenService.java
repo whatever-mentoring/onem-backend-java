@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
@@ -24,6 +25,7 @@ public class UrlShortenService {
         ShortenUrl shortenUrl = shortenUrlRepository.findByShortenKey(request.key())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid key"));
         
+        shortenUrl.setLastAccessedAt(LocalDateTime.now());
         shortenUrlRepository.save(shortenUrl);
         
         return new SearchShortenUrlResponse(shortenUrl.getOriginalUrl());
