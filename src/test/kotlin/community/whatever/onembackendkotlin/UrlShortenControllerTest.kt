@@ -63,4 +63,18 @@ class UrlShortenControllerTest {
         // then
         Assertions.assertEquals(originUrl, result)
     }
+
+    @Test
+    fun `유요하지 않은 키로 검색하면 404 에러를 반환한다`() {
+        // given
+        val invalidKey = "invalid-key"
+
+        // when
+        mockMvc.perform(
+            post("/shorten-url/search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(invalidKey)
+        )
+            .andExpect(status().isNotFound)
+    }
 }
