@@ -20,7 +20,11 @@ public class UrlShortenService {
     }
 
     public CreateShortenUrlResponse createShortenUrl(CreateShortenUrlRequest request) {
-        String randomKey = String.valueOf(random.nextInt(10000));
+        String randomKey;
+        do {
+            randomKey = String.valueOf(random.nextInt(10000));
+        } while (!shortenUrls.containsKey(randomKey));
+
         shortenUrls.put(randomKey, request.originUrl());
         return new CreateShortenUrlResponse(randomKey);
     }
