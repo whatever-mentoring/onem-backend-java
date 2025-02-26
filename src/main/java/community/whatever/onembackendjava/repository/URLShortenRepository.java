@@ -4,8 +4,8 @@ import java.util.Optional;
 
 public interface URLShortenRepository {
 
-	public Optional<String> findByShortenedURL(String key);
+	Optional<String> findByShortenedURL(String key);
 
-	public String create(String originURL, String shortenUrl);
+	String create(String originURL, String shortenUrl);
 
 }
