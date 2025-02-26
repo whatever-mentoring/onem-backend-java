@@ -4,6 +4,7 @@ import community.whatever.onembackendjava.dto.CreateShortenUrlRequest;
 import community.whatever.onembackendjava.dto.CreateShortenUrlResponse;
 import community.whatever.onembackendjava.dto.SearchShortenUrlRequest;
 import community.whatever.onembackendjava.dto.SearchShortenUrlResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public class UrlShortenController {
     }
 
     @PostMapping("/shorten-url/create")
-    public CreateShortenUrlResponse shortenUrlCreate(@RequestBody CreateShortenUrlRequest request) {
+    public CreateShortenUrlResponse shortenUrlCreate(@Valid @RequestBody CreateShortenUrlRequest request) {
         return urlShortenService.createShortenUrl(request);
     }
 }

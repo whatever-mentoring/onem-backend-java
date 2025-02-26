@@ -25,7 +25,7 @@ public class ShortenUrl {
     @Column(unique = true, nullable = false)
     private String shortenKey;
 
-    @Column(nullable = false, length = 32767)
+    @Column(nullable = false, length = 2083)
     private String originalUrl;
 
     @Column(nullable = false)
