@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "shorten_urls")
 @Getter
-@Setter
 @NoArgsConstructor
 public class ShortenUrl {
 
@@ -32,6 +31,7 @@ public class ShortenUrl {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @Setter
     @Column
     private LocalDateTime lastAccessedAt;
 
