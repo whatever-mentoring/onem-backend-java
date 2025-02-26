@@ -77,4 +77,33 @@ class UrlShortenControllerTest {
         )
             .andExpect(status().isNotFound)
     }
+
+    @Test
+    fun `중복된 원본 URL을 등록하면 기존 키를 반환한다`() {
+        // given
+        val originUrl = "https://www.google.com"
+        val key = mockMvc.perform(
+            post("/shorten-url/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(originUrl)
+        )
+            .andExpect(status().isOk)
+            .andReturn()
+            .response
+            .contentAsString
+
+        // when
+        val result = mockMvc.perform(
+            post("/shorten-url/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(originUrl)
+        )
+            .andExpect(status().isOk)
+            .andReturn()
+            .response
+            .contentAsString
+
+        // then
+        Assertions.assertEquals(key, result)
+    }
 }
