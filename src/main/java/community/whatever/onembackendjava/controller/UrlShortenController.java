@@ -17,6 +17,9 @@ public class UrlShortenController {
 
 	private final ShortenURLService service;
 
+	/**
+	 * @deprecated use {@link #getOriginalUrl(String)}
+	 */
 	@Deprecated
 	@PostMapping("/shorten-url/search")
 	public String shortenUrlSearch(@RequestBody String key) {
@@ -24,6 +27,9 @@ public class UrlShortenController {
 		return shortenURL;
 	}
 
+	/**
+	 * @deprecated use {@link #createShortenedURL(ShortenedURLCreateRequest)}
+	 */
 	@Deprecated
 	@PostMapping("/shorten-url/create")
 	public String shortenUrlCreate(@RequestBody String originUrl) {
