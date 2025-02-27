@@ -24,12 +24,12 @@ public class UrlShortenController {
         return urlShortenService.createShortenUrl(request);
     }
 
-    @GetMapping("/shorten--urls")
+    @GetMapping("/shorten-urls")
     public HashMapResponse getAllShortenUrls() {
         return urlShortenService.getAllShortenUrls();
     }
 
-    @PostMapping("/shorten--urls")
+    @PostMapping("/shorten-urls")
     public String postShortenUrls(@RequestBody PostShortenUrlsRequest request) {
         return urlShortenService.addToShortenUrls(request);
     }
