@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import community.whatever.onembackendjava.dto.req.ShortenedURLCreateRequest;
+import community.whatever.onembackendjava.dto.res.ShortenedURLCreateResponse;
 import community.whatever.onembackendjava.service.ShortenURLService;
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +35,14 @@ public class UrlShortenController {
 	public String getOriginalUrl(@RequestParam String shortenedURL) {
 		String originURL = service.getOriginURL(shortenedURL);
 		return originURL;
+	}
+
+	@PostMapping("/shorten-url")
+	public ShortenedURLCreateResponse createShortenedURL(@RequestBody ShortenedURLCreateRequest req) {
+		String originUrl = req.originURL();
+		String shortenedURL = service.createShortenedURL(originUrl);
+		ShortenedURLCreateResponse res = new ShortenedURLCreateResponse(shortenedURL);
+		return res;
 	}
 
 }
