@@ -1,7 +1,7 @@
 package community.whatever.onembackendjava.controller;
 
 import community.whatever.onembackendjava.service.AdminUrlShortenService;
-import community.whatever.onembackendjava.dto.HashMapResponse;
+import community.whatever.onembackendjava.dto.ShortenUrlsMapResponse;
 import community.whatever.onembackendjava.dto.PostShortenUrlsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class AdminUrlShortenController {
     private final AdminUrlShortenService adminUrlShortenService;
 
     @GetMapping("/admin/shorten-urls")
-    public ResponseEntity<HashMapResponse> getAllShortenUrls() {
+    public ResponseEntity<ShortenUrlsMapResponse> getAllShortenUrls() {
         return ResponseEntity.ok(adminUrlShortenService.getAllShortenUrls());
     }
 
