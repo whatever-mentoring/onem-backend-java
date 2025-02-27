@@ -13,12 +13,14 @@ public class UrlShortenController {
 
 	private final ShortenURLService service;
 
+	@Deprecated
 	@PostMapping("/shorten-url/search")
 	public String shortenUrlSearch(@RequestBody String key) {
 		String shortenURL = service.getOriginURL(key);
 		return shortenURL;
 	}
 
+	@Deprecated
 	@PostMapping("/shorten-url/create")
 	public String shortenUrlCreate(@RequestBody String originUrl) {
 		String shortenedURL = service.createShortenedURL(originUrl);
