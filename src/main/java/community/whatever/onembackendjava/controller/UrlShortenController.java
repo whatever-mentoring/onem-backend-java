@@ -1,5 +1,6 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.controller;
 
+import community.whatever.onembackendjava.service.UrlShortenService;
 import community.whatever.onembackendjava.dto.CreateShortenUrlRequest;
 import community.whatever.onembackendjava.dto.CreateShortenUrlResponse;
 import community.whatever.onembackendjava.dto.SearchShortenUrlRequest;

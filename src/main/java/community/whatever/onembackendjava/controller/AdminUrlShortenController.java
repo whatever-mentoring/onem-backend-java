@@ -1,5 +1,6 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.controller;
 
+import community.whatever.onembackendjava.service.AdminUrlShortenService;
 import community.whatever.onembackendjava.dto.HashMapResponse;
 import community.whatever.onembackendjava.dto.PostShortenUrlsRequest;
 import lombok.RequiredArgsConstructor;

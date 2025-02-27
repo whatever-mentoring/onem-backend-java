@@ -1,5 +1,6 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.service;
 
+import community.whatever.onembackendjava.UrlMappingManager;
 import community.whatever.onembackendjava.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
