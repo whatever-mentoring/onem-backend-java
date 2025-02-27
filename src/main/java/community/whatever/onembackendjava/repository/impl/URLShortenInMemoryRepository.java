@@ -7,10 +7,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import community.whatever.onembackendjava.repository.URLShortenRepository;
-import lombok.RequiredArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
 public class URLShortenInMemoryRepository implements URLShortenRepository {
 
 	private final Map<String, String> shortenUrls = new HashMap<>();
