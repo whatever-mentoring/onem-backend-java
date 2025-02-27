@@ -1,0 +1,55 @@
+<configuration>
+    <property name="LOG_PATH" value="./logs" />
+
+    <!-- 콘솔 로그 (local, dev, prod) -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 파일 로그 (dev, prod) -->
+
+        <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 롤링은 매일 00시를 기준 -->
+            <fileNamePattern>${LOG_PATH}/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 최대 보관기간은 3일 -->
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 로깅 레벨 환경별 설정 -->
+
+    <!--  local profile  -->
+    <root level="DEBUG">
+        <appender-ref ref="Console"/>
+    </root>
+
+    <!-- local profile override -->
+    <springProfile name="local">
+        <root level="DEBUG">
+            <appender-ref ref="Console"/>
+        </root>
+    </springProfile>
+
+    <!-- dev profile override -->
+    <springProfile name="dev">
+        <root level="WARN">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="FileAppender"/>
+        </root>
+    </springProfile>
+
+    <!-- prod profile override -->
+    <springProfile name="prod">
+        <root level="ERROR">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="FileAppender"/>
+        </root>
+    </springProfile>
+</configuration>
