@@ -15,18 +15,18 @@ public class UrlShortenController {
     private final UrlShortenService urlShortenService;
 
     @PostMapping("/shorten-url/search")
-    public SearchShortenUrlResponse shortenUrlSearch(@RequestBody SearchShortenUrlRequest request) {
-        return urlShortenService.searchShortenUrl(request);
+    public ResponseEntity<SearchShortenUrlResponse> shortenUrlSearch(@RequestBody SearchShortenUrlRequest request) {
+        return ResponseEntity.ok(urlShortenService.searchShortenUrl(request));
     }
 
     @PostMapping("/shorten-url/create")
-    public CreateShortenUrlResponse shortenUrlCreate(@Valid @RequestBody CreateShortenUrlRequest request) {
-        return urlShortenService.createShortenUrl(request);
+    public ResponseEntity<CreateShortenUrlResponse> shortenUrlCreate(@Valid @RequestBody CreateShortenUrlRequest request) {
+        return ResponseEntity.ok(urlShortenService.createShortenUrl(request));
     }
 
     @GetMapping("/admin/shorten-urls")
-    public HashMapResponse getAllShortenUrls() {
-        return urlShortenService.getAllShortenUrls();
+    public ResponseEntity<HashMapResponse> getAllShortenUrls() {
+        return ResponseEntity.ok(urlShortenService.getAllShortenUrls());
     }
 
     @PostMapping("/admin/shorten-urls")
