@@ -16,12 +16,11 @@ import lombok.val;
 @RestControllerAdvice
 public class ExceptionController {
 
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(BusinessLogicException.class)
-	public ResponseEntity<BusinessExceptionResponse> handleBusinessLogicException(BusinessLogicException e) {
-		BusinessExceptionCode ec = e.getExceptionCode();
-		BusinessExceptionResponse res = new BusinessExceptionResponse(ec.getErrorMessage());
-		log.error("error =", e);
-		return ResponseEntity.status(ec.getStatus()).body(res);
+	public BusinessExceptionResponse handleBusinessLogicException(BusinessLogicException e) {
+        log.error("error =", e);
+		return new BusinessExceptionResponse(e.getExceptionCode().getErrorMessage());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
