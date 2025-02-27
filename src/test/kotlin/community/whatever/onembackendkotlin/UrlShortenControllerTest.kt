@@ -8,6 +8,8 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executors
 
 @WebMvcTest(UrlShortenController::class)
 class UrlShortenControllerTest {
@@ -105,5 +107,33 @@ class UrlShortenControllerTest {
 
         // then
         Assertions.assertEquals(key, result)
+    }
+
+    @Test
+    fun `동시에 여러 개의 원본 URL을 등록하더라도 키가 중복되지 않는다`() {
+        // given
+        val originUrls = (1..100).map { "https://www.google.com/$it" }
+        val executor = Executors.newFixedThreadPool(10)
+
+        // when
+        val futures = originUrls.map { url ->
+            CompletableFuture.supplyAsync({
+                synchronized(mockMvc) {
+                    mockMvc.perform(
+                        post("/shorten-url/create")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(url)
+                    ).andExpect(status().isOk)
+                     .andReturn()
+                     .response
+                     .contentAsString
+                }
+            }, executor)
+        }
+
+        val keys = futures.map { it.get() }
+
+        // then
+        Assertions.assertEquals(originUrls.size, keys.distinct().size)
     }
 }
