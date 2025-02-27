@@ -1,7 +1,9 @@
 package community.whatever.onembackendjava.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import community.whatever.onembackendjava.service.ShortenURLService;
@@ -26,4 +28,11 @@ public class UrlShortenController {
 		String shortenedURL = service.createShortenedURL(originUrl);
 		return shortenedURL;
 	}
+
+	@GetMapping("/shorten-url")
+	public String getOriginalUrl(@RequestParam String shortenedURL) {
+		String originURL = service.getOriginURL(shortenedURL);
+		return originURL;
+	}
+
 }
