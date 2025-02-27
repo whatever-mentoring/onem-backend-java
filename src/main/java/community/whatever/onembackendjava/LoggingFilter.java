@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -15,7 +17,7 @@ import java.io.IOException;
 
 @WebFilter("/*")
 @Component
-public class LoggingFilter implements Filter {
+public class LoggingFilter extends OncePerRequestFilter {
 
     private static final String REQUEST_URI_PREFIX = "request uri: ";
     private static final String REQUEST_METHOD_PREFIX = "request method: ";
@@ -26,16 +28,16 @@ public class LoggingFilter implements Filter {
     private final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
     @Override
-    public void doFilter(
-            final ServletRequest request,
-            final ServletResponse response,
-            final FilterChain chain
-    ) throws IOException, ServletException {
+    protected void doFilterInternal(
+            @NonNull final HttpServletRequest request,
+            @NonNull final HttpServletResponse response,
+            @NonNull final FilterChain filterChain
+    ) throws ServletException, IOException {
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) request);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
         try {
-            chain.doFilter(requestWrapper, responseWrapper);
+            filterChain.doFilter(requestWrapper, responseWrapper);
         } catch (Exception e) {
             logger.error(buildRequestLog(requestWrapper));
             throw e;
@@ -54,7 +56,7 @@ public class LoggingFilter implements Filter {
         return sb.toString();
     }
 
-    private String getRequestBody(ContentCachingRequestWrapper requestWrapper) {
+    private String getRequestBody(final ContentCachingRequestWrapper requestWrapper) {
         String requestBody = requestWrapper.getContentAsString();
         return ObjectUtils.isEmpty(requestBody) ? EMPTY_SIGN : requestBody;
     }
