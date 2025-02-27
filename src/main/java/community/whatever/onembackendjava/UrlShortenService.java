@@ -64,4 +64,8 @@ public class UrlShortenService {
         }
         return "Success";
     }
+    
+    public String getOriginalUrl(String code) {
+        return shortenUrls.get(code);
+    }
 }
