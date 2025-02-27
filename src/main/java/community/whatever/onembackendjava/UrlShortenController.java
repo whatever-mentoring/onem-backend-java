@@ -3,7 +3,6 @@ package community.whatever.onembackendjava;
 import community.whatever.onembackendjava.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +34,15 @@ public class UrlShortenController {
     }
     
     @GetMapping("/{code}")
-    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String code) {
+    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String code) {
         String originalUrl = urlShortenService.getOriginalUrl(code);
-        if (originalUrl != null) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", originalUrl);
-            return new ResponseEntity<>(headers, HttpStatus.FOUND);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (originalUrl == null) {
+            return ResponseEntity.notFound().build();
         }
+        
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .header("Location", originalUrl)
+                .build();
     }
 }
