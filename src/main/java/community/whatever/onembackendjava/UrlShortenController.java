@@ -1,6 +1,9 @@
 package community.whatever.onembackendjava;
 
-import community.whatever.onembackendjava.dto.*;
+import community.whatever.onembackendjava.dto.CreateShortenUrlRequest;
+import community.whatever.onembackendjava.dto.CreateShortenUrlResponse;
+import community.whatever.onembackendjava.dto.SearchShortenUrlRequest;
+import community.whatever.onembackendjava.dto.SearchShortenUrlResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,16 +24,6 @@ public class UrlShortenController {
     @PostMapping("/shorten-url/create")
     public ResponseEntity<CreateShortenUrlResponse> shortenUrlCreate(@Valid @RequestBody CreateShortenUrlRequest request) {
         return ResponseEntity.ok(urlShortenService.createShortenUrl(request));
-    }
-
-    @GetMapping("/admin/shorten-urls")
-    public ResponseEntity<HashMapResponse> getAllShortenUrls() {
-        return ResponseEntity.ok(urlShortenService.getAllShortenUrls());
-    }
-
-    @PostMapping("/admin/shorten-urls")
-    public ResponseEntity<String> postShortenUrls(@RequestBody PostShortenUrlsRequest request) {
-        return ResponseEntity.ok(urlShortenService.addToShortenUrls(request));
     }
     
     @GetMapping("/{code}")
