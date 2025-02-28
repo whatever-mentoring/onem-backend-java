@@ -2,7 +2,7 @@ package community.whatever.onembackendjava.controller;
 
 import community.whatever.onembackendjava.service.AdminUrlShortenService;
 import community.whatever.onembackendjava.dto.ShortenUrlsMapResponse;
-import community.whatever.onembackendjava.dto.PostShortenUrlsRequest;
+import community.whatever.onembackendjava.dto.BulkAddShortenUrlsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class AdminUrlShortenController {
     }
 
     @PostMapping("/admin/shorten-urls")
-    public ResponseEntity<String> postShortenUrls(@RequestBody PostShortenUrlsRequest request) {
-        return ResponseEntity.ok(adminUrlShortenService.addToShortenUrls(request));
+    public ResponseEntity<String> bulkAddShortenUrls(@RequestBody BulkAddShortenUrlsRequest request) {
+        return ResponseEntity.ok(adminUrlShortenService.bulkAddShortenUrls(request));
     }
 }
