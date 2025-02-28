@@ -1,6 +1,8 @@
-package community.whatever.onembackendjava;
+package community.whatever.onembackendjava.service;
 
+import community.whatever.onembackendjava.UrlMappingManager;
 import community.whatever.onembackendjava.dto.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -8,19 +10,17 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
+@RequiredArgsConstructor
 public class UrlShortenService {
-    private final Map<String, String> shortenUrls = new ConcurrentHashMap<>();
+    private final UrlMappingManager urlMappingManager;
 
     private static final int KEY_LENGTH = 6;
 
     public SearchShortenUrlResponse searchShortenUrl(SearchShortenUrlRequest request) {
-        String url = shortenUrls.get(request.key());
+        String url = urlMappingManager.find(request.key());
         if (url == null) {
             throw new IllegalArgumentException("Invalid key");
         }
@@ -33,7 +33,7 @@ public class UrlShortenService {
 
         do {
             randomKey = generateRandomKey();
-        } while (shortenUrls.putIfAbsent(randomKey, originUrl) != null);
+        } while (!urlMappingManager.putIfAbsent(randomKey, originUrl));
 
         return new CreateShortenUrlResponse(randomKey);
     }
@@ -53,15 +53,8 @@ public class UrlShortenService {
             throw new RuntimeException(e);
         }
     }
-
-    public HashMapResponse getAllShortenUrls() {
-        return new HashMapResponse(new HashMap<>(shortenUrls));
-    }
-
-    public String addToShortenUrls(PostShortenUrlsRequest request) {
-        if (request.shortenUrls() != null) {
-            request.shortenUrls().forEach(shortenUrls::putIfAbsent);
-        }
-        return "Success";
+    
+    public String getOriginalUrl(String code) {
+        return urlMappingManager.find(code);
     }
 }
