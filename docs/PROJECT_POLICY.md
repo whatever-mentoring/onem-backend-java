@@ -19,3 +19,7 @@ class UrlNotFoundException(
     message: String = "URL을 찾을 수 없습니다."
 ) : RuntimeException(message)
 ```
+
+## 4. 라이브러리 사용 정책
+
+- 선택근거를 명시하고 사용하여야 합니다.
