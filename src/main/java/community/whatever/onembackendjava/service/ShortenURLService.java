@@ -4,6 +4,8 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
+import community.whatever.onembackendjava.exception.BusinessExceptionCode;
+import community.whatever.onembackendjava.exception.BusinessLogicException;
 import community.whatever.onembackendjava.repository.URLShortenRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +19,7 @@ public class ShortenURLService {
 
 	public String getOriginURL(String shortenedURL) {
 		String originURL = repository.findByShortenedURL(shortenedURL)
-			.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new BusinessLogicException(BusinessExceptionCode.ORIGIN_URL_NOT_FOUND));
 
 		return originURL;
 	}
@@ -26,7 +28,7 @@ public class ShortenURLService {
 		String generatedShortenedURL = generateShortenedURL();
 		String shortenedURL = repository.create(originURL, generatedShortenedURL);
 
-		return generatedShortenedURL;
+		return shortenedURL;
 	}
 
 	private String generateShortenedURL() {
